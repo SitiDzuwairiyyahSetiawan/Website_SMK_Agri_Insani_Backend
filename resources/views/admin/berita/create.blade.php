@@ -3,196 +3,562 @@
 @section('title', 'Tambah Berita')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+
+<style>
+
+    .page-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        margin-bottom:32px;
+        flex-wrap:wrap;
+    }
+
+    .page-title{
+        font-size:38px;
+        font-weight:800;
+        color:white;
+        margin-bottom:8px;
+        line-height:1.1;
+    }
+
+    .page-subtitle{
+        color:rgba(255,255,255,.7);
+        margin:0;
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .modern-card{
+        border:none;
+        border-radius:28px;
+        background:white;
+        overflow:hidden;
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.05),
+            0 2px 10px rgba(0,0,0,.03);
+    }
+
+    .card-body-modern{
+        padding:32px;
+    }
+
+    .section-title{
+        font-size:13px;
+        font-weight:800;
+        color:#16a34a;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+        margin-bottom:22px;
+    }
+
+    .form-label{
+        font-size:14px;
+        font-weight:700;
+        color:#1f2937;
+        margin-bottom:10px;
+    }
+
+    .form-control,
+    textarea{
+        border-radius:18px !important;
+        border:1px solid #e5e7eb !important;
+        background:#f9fafb !important;
+        padding:16px 18px !important;
+        font-size:15px;
+        box-shadow:none !important;
+        color:#111827 !important;
+    }
+
+    textarea.form-control{
+        resize:none;
+        min-height:300px !important;
+        height:300px !important;
+        padding-top:18px !important;
+        line-height:1.7;
+    }
+
+    .form-control:focus,
+    textarea:focus{
+        border-color:#16a34a !important;
+        background:white !important;
+        box-shadow:
+            0 0 0 4px rgba(22,163,74,.10) !important;
+    }
+
+    .upload-preview{
+        width:100%;
+        height:280px;
+        border-radius:24px;
+        border:2px dashed #d1d5db;
+        background:#f9fafb;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        transition:.3s;
+    }
+
+    .upload-preview img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .upload-placeholder{
+        text-align:center;
+        padding:20px;
+    }
+
+    .upload-placeholder i{
+        font-size:58px;
+        color:#9ca3af;
+        margin-bottom:18px;
+    }
+
+    .upload-placeholder h6{
+        font-size:16px;
+        font-weight:700;
+        color:#6b7280;
+        margin:0;
+    }
+
+    .custom-file{
+        position:relative;
+    }
+
+    .custom-file input[type=file]{
+        opacity:0;
+        position:absolute;
+        inset:0;
+        width:100%;
+        cursor:pointer;
+    }
+
+    .custom-file-label{
+        width:100%;
+        height:58px;
+        border-radius:18px;
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        );
+        color:white;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        font-weight:700;
+        cursor:pointer;
+        transition:.3s;
+    }
+
+    .custom-file-label:hover{
+        transform:translateY(-2px);
+        box-shadow:
+            0 10px 20px rgba(21,128,61,.20);
+    }
+
+    .form-switch{
+        padding-left:0;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+    }
+
+    /* FIX TEXT PUBLISH */
+    .form-check-label{
+        font-size:15px !important;
+        font-weight:700 !important;
+        color:#1f2937 !important;
+        margin:0 !important;
+    }
+
+    .form-switch .form-check-input{
+        width:58px;
+        height:30px;
+        cursor:pointer;
+        margin-left:auto !important;
+        flex-shrink:0;
+    }
+
+    .tips-card{
+        border:none;
+        border-radius:24px;
+        background:linear-gradient(
+            135deg,
+            #f0fdf4,
+            #dcfce7
+        );
+        padding:24px;
+    }
+
+    .tips-title{
+        font-size:16px;
+        font-weight:800;
+        color:#166534;
+        margin-bottom:14px;
+    }
+
+    .tips-list{
+        padding-left:18px;
+        margin:0;
+    }
+
+    .tips-list li{
+        color:#166534;
+        margin-bottom:8px;
+        line-height:1.6;
+    }
+
+    .slug-preview{
+        padding:14px 18px;
+        border-radius:16px;
+        background:#f3f4f6;
+        color:#374151;
+        font-size:14px;
+        word-break:break-all;
+    }
+
+    .btn-back{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        background:#f3f4f6 !important;
+        color:#374151 !important;
+        transition:.3s;
+    }
+
+    .btn-back:hover{
+        background:#e5e7eb !important;
+    }
+
+    .btn-save{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 28px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        ) !important;
+        transition:.3s;
+    }
+
+    .btn-save:hover{
+        transform:translateY(-2px);
+        box-shadow:
+            0 10px 20px rgba(21,128,61,.25);
+    }
+
+</style>
+
+{{-- HEADER --}}
+<div class="page-header">
+
     <div>
-        <h2 class="mb-0">Tambah Berita Baru</h2>
-        <p class="text-muted">Buat berita atau informasi terbaru untuk publikasi</p>
+
+        <h1 class="page-title">
+            Tambah Berita
+        </h1>
+
+        <p class="page-subtitle">
+            Tambahkan berita baru untuk website sekolah
+        </p>
+
     </div>
+
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data">
+<div class="modern-card">
+
+    <div class="card-body-modern">
+
+        <form action="{{ route('admin.berita.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
             @csrf
-            
-            <div class="row">
-                <div class="col-md-8">
-                    <!-- Judul -->
-                    <div class="mb-3">
-                        <label for="judul" class="form-label fw-bold">
-                            Judul Berita <span class="text-danger">*</span>
+
+            <div class="row g-4">
+
+                {{-- LEFT --}}
+                <div class="col-lg-8">
+
+                    <div class="section-title">
+                        Informasi Berita
+                    </div>
+
+                    {{-- JUDUL --}}
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Judul Berita
                         </label>
-                        <input type="text" 
-                               class="form-control @error('judul') is-invalid @enderror" 
-                               id="judul" 
-                               name="judul" 
-                               value="{{ old('judul') }}" 
-                               placeholder="Masukkan judul berita"
-                               required>
-                        <div class="form-text">Judul akan otomatis dibuatkan slug untuk URL</div>
+
+                        <input type="text"
+                               name="judul"
+                               id="judul"
+                               class="form-control @error('judul') is-invalid @enderror"
+                               value="{{ old('judul') }}"
+                               placeholder="Masukkan judul berita">
+
                         @error('judul')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <small class="text-danger mt-2 d-block">
+                                {{ $message }}
+                            </small>
                         @enderror
+
                     </div>
-                    
-                    <!-- Slug Preview -->
-                    <div class="mb-3">
-                        <label class="form-label text-muted">
-                            <i class="fas fa-link"></i> Preview Slug:
+
+                    {{-- SLUG --}}
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Preview Slug
                         </label>
-                        <div class="bg-light p-2 rounded" id="slugPreview"></div>
+
+                        <div class="slug-preview"
+                             id="slugPreview">
+
+                            Slug akan muncul otomatis...
+
+                        </div>
+
                     </div>
-                    
-                    <!-- Konten -->
-                    <div class="mb-3">
-                        <label for="konten" class="form-label fw-bold">
-                            Konten Berita <span class="text-danger">*</span>
+
+                    {{-- KONTEN --}}
+                    <div>
+
+                        <label class="form-label">
+                            Konten Berita
                         </label>
-                        <textarea class="form-control @error('konten') is-invalid @enderror" 
-                                  id="konten" 
-                                  name="konten" 
-                                  rows="12" 
+
+                        <textarea name="konten"
+                                  class="form-control @error('konten') is-invalid @enderror"
                                   placeholder="Tulis konten berita disini...">{{ old('konten') }}</textarea>
+
                         @error('konten')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <small class="text-danger mt-2 d-block">
+                                {{ $message }}
+                            </small>
                         @enderror
+
                     </div>
+
                 </div>
-                
-                <div class="col-md-4">
-                    <!-- Gambar -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <i class="fas fa-image"></i> Gambar Berita
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center mb-3">
-                                <div id="imagePreview" class="border rounded p-3 bg-light">
-                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted"></i>
-                                    <p class="text-muted small mt-2">Belum ada gambar</p>
+
+                {{-- RIGHT --}}
+                <div class="col-lg-4">
+
+                    {{-- IMAGE --}}
+                    <div class="modern-card mb-4">
+
+                        <div class="card-body-modern">
+
+                            <div class="section-title">
+                                Upload Gambar
+                            </div>
+
+                            <div id="imagePreview"
+                                 class="upload-preview mb-4">
+
+                                <div class="upload-placeholder">
+
+                                    <i class="fas fa-image"></i>
+
+                                    <h6>
+                                        Belum Ada Gambar
+                                    </h6>
+
                                 </div>
+
                             </div>
-                            <input type="file" 
-                                   class="form-control @error('gambar') is-invalid @enderror" 
-                                   id="gambar" 
-                                   name="gambar" 
-                                   accept="image/*">
-                            <div class="form-text mt-2">
-                                <small>
-                                    <i class="fas fa-info-circle"></i> 
-                                    Format: JPG, PNG, JPEG (Max 2MB)<br>
-                                    Ukuran rekomendasi: 800x500px
-                                </small>
-                            </div>
-                            @error('gambar')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <!-- Tanggal -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <i class="fas fa-calendar-alt"></i> Informasi Publikasi
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="tanggal" class="form-label fw-bold">
-                                    Tanggal Berita <span class="text-danger">*</span>
+
+                            <div class="custom-file">
+
+                                <label class="custom-file-label">
+
+                                    <i class="fas fa-upload"></i>
+                                    Pilih Gambar
+
+                                    <input type="file"
+                                           name="gambar"
+                                           id="gambar"
+                                           accept="image/*">
+
                                 </label>
-                                <input type="date" 
-                                       class="form-control @error('tanggal') is-invalid @enderror" 
-                                       id="tanggal" 
-                                       name="tanggal" 
-                                       value="{{ old('tanggal', date('Y-m-d')) }}"
-                                       required>
-                                @error('tanggal')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+
                             </div>
-                            
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Status Publikasi</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="is_published" id="published" value="1" {{ old('is_published', '1') == '1' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="published">
-                                        <i class="fas fa-globe text-success"></i> Publikasikan (Langsung tampil di website)
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="is_published" id="draft" value="0" {{ old('is_published') == '0' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="draft">
-                                        <i class="fas fa-pencil-alt text-secondary"></i> Simpan sebagai Draft
-                                    </label>
-                                </div>
-                            </div>
+
+                            @error('gambar')
+                                <small class="text-danger mt-2 d-block">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+
                         </div>
+
                     </div>
-                    
-                    <!-- Informasi -->
-                    <div class="alert alert-info">
-                        <i class="fas fa-lightbulb"></i>
-                        <strong>Tips:</strong>
-                        <ul class="mb-0 mt-2 small">
-                            <li>Gunakan judul yang menarik dan informatif</li>
-                            <li>Konten yang panjang bisa menggunakan paragraf</li>
-                            <li>Gambar akan membantu visualisasi berita</li>
+
+                    {{-- PENGATURAN --}}
+                    <div class="modern-card mb-4">
+
+                        <div class="card-body-modern">
+
+                            <div class="section-title">
+                                Pengaturan
+                            </div>
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+                                    Tanggal Berita
+                                </label>
+
+                                <input type="date"
+                                       name="tanggal"
+                                       class="form-control @error('tanggal') is-invalid @enderror"
+                                       value="{{ old('tanggal', date('Y-m-d')) }}">
+
+                                @error('tanggal')
+                                    <small class="text-danger mt-2 d-block">
+                                        {{ $message }}
+                                    </small>
+                                @enderror
+
+                            </div>
+
+                            <div class="form-check form-switch">
+
+                                <label class="form-check-label"
+                                       for="publishSwitch">
+                                    Publish Berita
+                                </label>
+
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="publishSwitch"
+                                       name="is_published"
+                                       value="1"
+                                       {{ old('is_published', 1) ? 'checked' : '' }}>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {{-- TIPS --}}
+                    <div class="tips-card">
+
+                        <div class="tips-title">
+                            Tips Penulisan
+                        </div>
+
+                        <ul class="tips-list">
+
+                            <li>Gunakan judul yang menarik</li>
+                            <li>Tambahkan gambar berkualitas baik</li>
+                            <li>Buat isi berita mudah dibaca</li>
+                            <li>Gunakan paragraf yang rapi</li>
+
                         </ul>
+
                     </div>
+
                 </div>
+
             </div>
-            
-            <div class="border-top pt-3 mt-3">
-                <a href="{{ route('admin.galeri.index') }}"
-                   class="btn btn-secondary">
-                    Kembali
+
+            {{-- BUTTON --}}
+            <div class="border-top pt-4 mt-4 d-flex gap-3">
+
+                <a href="{{ route('admin.berita.index') }}"
+                   class="btn btn-back">
+
+                    Batal
+
                 </a>
-                <button class="btn btn-primary">
+
+                <button type="submit"
+                        class="btn btn-save">
+
                     <i class="fas fa-save me-2"></i>
-                    Simpan
+                    Simpan Berita
+
                 </button>
+
             </div>
+
         </form>
+
     </div>
+
 </div>
 
 @push('scripts')
+
 <script>
-    // Preview Slug dari Judul
-    document.getElementById('judul').addEventListener('keyup', function() {
-        let judul = this.value;
-        let slug = judul.toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-        
-        let previewDiv = document.getElementById('slugPreview');
-        if (slug) {
-            previewDiv.innerHTML = '<code>{{ url("/berita") }}/' + slug + '</code>';
-        } else {
-            previewDiv.innerHTML = '<span class="text-muted">Slug akan muncul setelah judul diisi</span>';
-        }
-    });
-    
-    // Trigger preview slug on page load
-    document.getElementById('judul').dispatchEvent(new Event('keyup'));
-    
-    // Preview Gambar
-    document.getElementById('gambar').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.getElementById('imagePreview');
-                preview.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded" style="max-height: 200px;">`;
-            }
-            reader.readAsDataURL(file);
-        } else {
-            document.getElementById('imagePreview').innerHTML = `
-                <i class="fas fa-cloud-upload-alt fa-3x text-muted"></i>
-                <p class="text-muted small mt-2">Belum ada gambar</p>
+
+// SLUG PREVIEW
+document.getElementById('judul')
+.addEventListener('keyup', function()
+{
+    let judul = this.value;
+
+    let slug = judul.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+    let preview = document.getElementById('slugPreview');
+
+    if(slug)
+    {
+        preview.innerHTML =
+        `
+            {{ url('/berita') }}/${slug}
+        `;
+    }
+    else
+    {
+        preview.innerHTML =
+        `
+            Slug akan muncul otomatis...
+        `;
+    }
+});
+
+// IMAGE PREVIEW
+document.getElementById('gambar')
+.addEventListener('change', function(e)
+{
+    const file = e.target.files[0];
+
+    if(file)
+    {
+        const reader = new FileReader();
+
+        reader.onload = function(e)
+        {
+            document.getElementById('imagePreview').innerHTML =
+            `
+                <img src="${e.target.result}">
             `;
         }
-    });
+
+        reader.readAsDataURL(file);
+    }
+});
+
 </script>
+
 @endpush
+
 @endsection

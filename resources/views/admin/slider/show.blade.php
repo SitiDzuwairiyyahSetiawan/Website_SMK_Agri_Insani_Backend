@@ -5,48 +5,286 @@
 @section('content')
 
 <style>
-    .slider-image{
-        width: 100%;
-        max-height: 500px;
-        object-fit: cover;
-        border-radius: 18px;
+
+    .page-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        margin-bottom:32px;
+        flex-wrap:wrap;
     }
 
-    .info-table td{
-        padding: 10px 0;
-        vertical-align: top;
+    .page-title{
+        font-size:38px;
+        font-weight:800;
+        color:white;
+        margin-bottom:8px;
+        line-height:1.1;
+    }
+
+    .page-subtitle{
+        color:rgba(255,255,255,.7);
+        margin:0;
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .modern-card{
+        border:none;
+        border-radius:28px;
+        background:white;
+        overflow:hidden;
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.05),
+            0 2px 10px rgba(0,0,0,.03);
+    }
+
+    .card-body-modern{
+        padding:32px;
+    }
+
+    .section-title{
+        font-size:13px;
+        font-weight:800;
+        color:#16a34a;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+        margin-bottom:22px;
+    }
+
+    .slider-image{
+        width:100%;
+        height:420px;
+        border-radius:24px;
+        object-fit:cover;
+        border:2px solid #f3f4f6;
+    }
+
+    .empty-image{
+        width:100%;
+        height:420px;
+        border-radius:24px;
+        border:2px dashed #d1d5db;
+        background:#f9fafb;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .empty-image i{
+        font-size:70px;
+        color:#9ca3af;
+        margin-bottom:18px;
+    }
+
+    .empty-image h5{
+        font-weight:700;
+        color:#6b7280;
+    }
+
+    .tag-badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 18px;
+        border-radius:999px;
+        background:#dcfce7;
+        color:#166534;
+        font-size:13px;
+        font-weight:700;
+        margin-bottom:18px;
+    }
+
+    .slider-title{
+        font-size:38px;
+        font-weight:800;
+        color:#111827;
+        line-height:1.2;
+        margin-bottom:24px;
+    }
+
+    .meta-wrapper{
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .meta-chip{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 18px;
+        border-radius:18px;
+        background:#f9fafb;
+        border:1px solid #f3f4f6;
+        color:#374151;
+        font-size:14px;
+        font-weight:700;
+    }
+
+    .description-box{
+        line-height:2;
+        color:#4b5563;
+        font-size:15px;
+    }
+
+    .info-item{
+        padding:16px 0;
+        border-bottom:1px dashed #e5e7eb;
+    }
+
+    .info-item:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+    }
+
+    .info-label{
+        font-size:13px;
+        color:#9ca3af;
+        margin-bottom:6px;
+        font-weight:600;
+    }
+
+    .info-value{
+        font-size:15px;
+        font-weight:700;
+        color:#111827;
+    }
+
+    .status-badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 16px;
+        border-radius:999px;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .status-active{
+        background:#dcfce7;
+        color:#166534;
+    }
+
+    .status-nonactive{
+        background:#f3f4f6;
+        color:#6b7280;
+    }
+
+    .copy-group{
+        display:flex;
+        overflow:hidden;
+        border-radius:18px;
+        border:1px solid #e5e7eb;
+        background:#f9fafb;
+    }
+
+    .copy-input{
+        flex:1;
+        border:none !important;
+        background:transparent !important;
+        padding:16px !important;
+        font-size:14px;
+        box-shadow:none !important;
     }
 
     .copy-btn{
-        transition: 0.3s ease;
+        width:60px;
+        border:none;
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        );
+        color:white;
+        font-size:18px;
     }
 
-    .copy-btn:hover{
-        background: #198754;
-        border-color: #198754;
+    .btn-back{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        background:#f3f4f6 !important;
+        color:#374151 !important;
     }
 
-    .card{
-        border-radius: 18px;
+    .btn-edit{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #f59e0b,
+            #d97706
+        ) !important;
     }
+
+    .btn-delete{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        ) !important;
+    }
+
+    .modal-modern{
+        border:none;
+        border-radius:28px;
+        overflow:hidden;
+    }
+
+    @media(max-width:768px){
+
+        .page-title{
+            font-size:30px;
+        }
+
+        .slider-title{
+            font-size:28px;
+        }
+
+        .slider-image,
+        .empty-image{
+            height:280px;
+        }
+
+        .card-body-modern{
+            padding:22px;
+        }
+
+    }
+
 </style>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+{{-- HEADER --}}
+<div class="page-header">
 
     <div>
-        <h2 class="mb-0 fw-bold">
-            Detail Slider
-        </h2>
 
-        <p class="text-muted">
-            Lihat informasi lengkap slider homepage
+        <h1 class="page-title">
+            Detail Slider
+        </h1>
+
+        <p class="page-subtitle">
+            Informasi lengkap slider homepage website sekolah
         </p>
+
     </div>
 
-    <div>
+    <div class="d-flex gap-2 flex-wrap">
 
         <a href="{{ route('admin.slider.index') }}"
-           class="btn btn-secondary">
+           class="btn btn-back">
 
             <i class="fas fa-arrow-left me-2"></i>
             Kembali
@@ -57,33 +295,37 @@
 
 </div>
 
-<div class="row">
+<div class="row g-4">
 
-    {{-- KONTEN --}}
-    <div class="col-md-8">
+    {{-- LEFT --}}
+    <div class="col-lg-8">
 
-        <div class="card shadow-sm border-0 mb-4">
+        <div class="modern-card">
 
-            <div class="card-body">
+            <div class="card-body-modern">
 
                 {{-- IMAGE --}}
-                <div class="mb-4 text-center">
+                <div class="mb-4">
 
                     @if($slider->image)
 
                         <img src="{{ asset('storage/' . $slider->image) }}"
                              alt="{{ $slider->title }}"
-                             class="slider-image shadow-sm">
+                             class="slider-image">
 
                     @else
 
-                        <div class="bg-light rounded p-5 text-center">
+                        <div class="empty-image">
 
-                            <i class="fas fa-images fa-5x text-muted"></i>
+                            <div>
 
-                            <p class="text-muted mt-3">
-                                Tidak ada gambar slider
-                            </p>
+                                <i class="fas fa-image"></i>
+
+                                <h5>
+                                    Belum Ada Gambar
+                                </h5>
+
+                            </div>
 
                         </div>
 
@@ -91,43 +333,56 @@
 
                 </div>
 
-                {{-- TITLE --}}
-                <h1 class="h3 fw-bold mb-3">
-                    {{ $slider->title }}
-                </h1>
+                {{-- CONTENT --}}
+                <div>
 
-                {{-- META --}}
-                <div class="text-muted mb-4">
+                    @if($slider->tag)
 
-                    <i class="fas fa-calendar-alt"></i>
+                        <div class="tag-badge">
 
-                    {{ $slider->created_at->format('d F Y') }}
+                            <i class="fas fa-tag"></i>
+                            {{ $slider->tag }}
 
-                    <span class="mx-2">|</span>
+                        </div>
 
-                    <i class="fas fa-clock"></i>
+                    @endif
 
-                    {{ $slider->created_at->format('H:i') }}
+                    <h1 class="slider-title">
+                        {{ $slider->title }}
+                    </h1>
 
-                    <span class="mx-2">|</span>
+                    <div class="meta-wrapper mb-5">
 
-                    <i class="fas fa-sort-numeric-down"></i>
+                        <div class="meta-chip">
 
-                    Order:
-                    {{ $slider->order }}
+                            <i class="fas fa-calendar-alt"></i>
+                            {{ $slider->created_at->format('d M Y') }}
 
-                </div>
+                        </div>
 
-                {{-- DESCRIPTION --}}
-                <div class="border-top pt-4">
+                        <div class="meta-chip">
 
-                    <h5 class="fw-bold mb-3">
+                            <i class="fas fa-clock"></i>
+                            {{ $slider->created_at->format('H:i') }}
+
+                        </div>
+
+                        <div class="meta-chip">
+
+                            <i class="fas fa-sort-numeric-down"></i>
+                            Order {{ $slider->order }}
+
+                        </div>
+
+                    </div>
+
+                    <div class="section-title">
                         Deskripsi Slider
-                    </h5>
+                    </div>
 
-                    <div style="line-height: 1.9; font-size:15px;">
+                    <div class="description-box">
 
-                        {!! nl2br(e($slider->description ?? 'Tidak ada deskripsi.')) !!}
+                        {!! nl2br(e($slider->description ?? 'Tidak ada deskripsi slider.')) !!}
 
                     </div>
 
@@ -139,184 +394,110 @@
 
     </div>
 
-    {{-- SIDEBAR --}}
-    <div class="col-md-4">
+    {{-- RIGHT --}}
+    <div class="col-lg-4">
 
         {{-- INFO --}}
-        <div class="card shadow-sm border-0 mb-4">
+        <div class="modern-card mb-4">
 
-            <div class="card-header bg-success text-white">
+            <div class="card-body-modern">
 
-                <h5 class="mb-0">
-
-                    <i class="fas fa-info-circle me-2"></i>
-
+                <div class="section-title">
                     Informasi Slider
+                </div>
 
-                </h5>
+                <div class="info-item">
 
-            </div>
+                    <div class="info-label">
+                        ID Slider
+                    </div>
 
-            <div class="card-body">
+                    <div class="info-value">
+                        {{ $slider->id }}
+                    </div>
 
-                <table class="table table-borderless table-sm info-table">
+                </div>
 
-                    <tr>
+                <div class="info-item">
 
-                        <td width="40%">
-                            <strong>ID</strong>
-                        </td>
+                    <div class="info-label">
+                        Status Slider
+                    </div>
 
-                        <td>
-                            #{{ $slider->id }}
-                        </td>
+                    <div class="info-value">
 
-                    </tr>
+                        @if($slider->is_active)
 
-                    <tr>
+                            <div class="status-badge status-active">
 
-                        <td>
-                            <strong>Title</strong>
-                        </td>
+                                <i class="fas fa-check-circle"></i>
+                                Active
 
-                        <td>
-                            {{ $slider->title }}
-                        </td>
+                            </div>
 
-                    </tr>
+                        @else
 
-                    <tr>
+                            <div class="status-badge status-nonactive">
 
-                        <td>
-                            <strong>Tag</strong>
-                        </td>
+                                <i class="fas fa-times-circle"></i>
+                                Non Active
 
-                        <td>
+                            </div>
 
-                            @if($slider->tag)
+                        @endif
 
-                                <span class="badge bg-info text-dark">
-                                    {{ $slider->tag }}
-                                </span>
+                    </div>
 
-                            @else
+                </div>
 
-                                -
+                <div class="info-item">
 
-                            @endif
+                    <div class="info-label">
+                        Tanggal Dibuat
+                    </div>
 
-                        </td>
+                    <div class="info-value">
+                        {{ $slider->created_at->format('d/m/Y H:i') }}
+                    </div>
 
-                    </tr>
+                </div>
 
-                    <tr>
+                <div class="info-item">
 
-                        <td>
-                            <strong>Order</strong>
-                        </td>
+                    <div class="info-label">
+                        Terakhir Update
+                    </div>
 
-                        <td>
+                    <div class="info-value">
+                        {{ $slider->updated_at->diffForHumans() }}
+                    </div>
 
-                            <span class="badge bg-dark">
-                                {{ $slider->order }}
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>
-                            <strong>Status</strong>
-                        </td>
-
-                        <td>
-
-                            @if($slider->is_active)
-
-                                <span class="badge bg-success">
-
-                                    <i class="fas fa-check-circle me-1"></i>
-
-                                    Active
-
-                                </span>
-
-                            @else
-
-                                <span class="badge bg-secondary">
-
-                                    <i class="fas fa-times-circle me-1"></i>
-
-                                    Non Active
-
-                                </span>
-
-                            @endif
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>
-                            <strong>Dibuat</strong>
-                        </td>
-
-                        <td>
-                            {{ $slider->created_at->format('d/m/Y H:i') }}
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>
-                            <strong>Diupdate</strong>
-                        </td>
-
-                        <td>
-                            {{ $slider->updated_at->format('d/m/Y H:i') }}
-                        </td>
-
-                    </tr>
-
-                </table>
+                </div>
 
             </div>
 
         </div>
 
-        {{-- LINK IMAGE --}}
-        <div class="card shadow-sm border-0 mb-4">
+        {{-- LINK --}}
+        <div class="modern-card">
 
-            <div class="card-header bg-info text-white">
+            <div class="card-body-modern">
 
-                <h5 class="mb-0">
-
-                    <i class="fas fa-link me-2"></i>
-
+                <div class="section-title">
                     Link Gambar
+                </div>
 
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="input-group">
+                <div class="copy-group">
 
                     <input type="text"
-                           class="form-control"
                            id="imageUrl"
+                           class="form-control copy-input"
                            value="{{ asset('storage/' . $slider->image) }}"
                            readonly>
 
-                    <button class="btn btn-primary copy-btn"
-                            type="button"
-                            onclick="copyToClipboard()">
+                    <button type="button"
+                            onclick="copyToClipboard()"
+                            class="copy-btn">
 
                         <i class="fas fa-copy"></i>
 
@@ -324,17 +505,19 @@
 
                 </div>
 
-                <small class="text-muted mt-2 d-block">
-
-                    Klik tombol copy untuk menyalin link gambar
-
+                <small class="text-muted d-block mt-3">
+                    Klik tombol copy untuk menyalin link gambar slider.
                 </small>
 
             </div>
 
         </div>
 
-{{-- MODAL DELETE --}}
+    </div>
+
+</div>
+
+{{-- DELETE MODAL --}}
 <div class="modal fade"
      id="deleteModal"
      tabindex="-1"
@@ -342,71 +525,63 @@
 
     <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-content border-0 rounded-4">
+        <div class="modal-content modal-modern">
 
-            <div class="modal-header bg-danger text-white">
+            <div class="modal-body p-5 text-center">
 
-                <h5 class="modal-title">
+                <div class="mb-4">
 
-                    <i class="fas fa-trash-alt me-2"></i>
+                    <div class="mx-auto d-flex align-items-center justify-content-center rounded-circle"
+                         style="width:90px;height:90px;background:#fee2e2;">
 
-                    Konfirmasi Hapus
+                        <i class="fas fa-trash-alt text-danger fa-2x"></i>
 
-                </h5>
-
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal">
-                </button>
-
-            </div>
-
-            <div class="modal-body text-center p-4">
-
-                <i class="fas fa-exclamation-triangle text-warning fa-4x mb-3"></i>
-
-                <h5 class="fw-bold">
-                    Yakin ingin menghapus slider?
-                </h5>
-
-                <p class="fw-bold text-danger">
-                    {{ $slider->title }}
-                </p>
-
-                <div class="alert alert-warning mt-3 text-start">
-
-                    <i class="fas fa-info-circle me-2"></i>
-
-                    Data slider dan gambar akan dihapus permanen.
+                    </div>
 
                 </div>
 
-            </div>
+                <h3 class="fw-bold mb-3">
+                    Hapus Slider?
+                </h3>
 
-            <div class="modal-footer">
+                <p class="text-muted mb-4">
+                    Slider akan dihapus permanen dari sistem.
+                </p>
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
+                <div class="alert alert-danger rounded-4 mb-4">
 
-                    Batal
+                    <strong>
+                        {{ $slider->title }}
+                    </strong>
 
-                </button>
+                </div>
 
-                <form action="{{ route('admin.slider.destroy', $slider->id) }}"
-                      method="POST">
+                <div class="d-flex justify-content-center gap-3">
 
-                    @csrf
-                    @method('DELETE')
+                    <button type="button"
+                            class="btn btn-back"
+                            data-bs-dismiss="modal">
 
-                    <button type="submit"
-                            class="btn btn-danger">
-
-                        Ya, Hapus
+                        Batal
 
                     </button>
 
-                </form>
+                    <form action="{{ route('admin.slider.destroy', $slider->id) }}"
+                          method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="btn btn-delete">
+
+                            Ya, Hapus
+
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
@@ -422,7 +597,7 @@
 
 function confirmDelete()
 {
-    let modal = new bootstrap.Modal(
+    const modal = new bootstrap.Modal(
         document.getElementById('deleteModal')
     );
 
@@ -431,15 +606,14 @@ function confirmDelete()
 
 function copyToClipboard()
 {
-    const copyText = document.getElementById("imageUrl");
+    const copyText = document.getElementById('imageUrl');
 
     copyText.select();
-
     copyText.setSelectionRange(0, 99999);
 
-    document.execCommand("copy");
+    navigator.clipboard.writeText(copyText.value);
 
-    alert("Link gambar berhasil disalin!");
+    alert('Link gambar berhasil disalin!');
 }
 
 </script>

@@ -98,7 +98,9 @@ class PendaftaranController extends Controller
             'verified_at' => now(),
         ]);
 
-        return back()->with('success', 'Status berhasil diperbarui');
+        return redirect()
+            ->route('admin.pendaftaran.index')
+            ->with('success', 'Status berhasil diperbarui');
     }
 
     /**

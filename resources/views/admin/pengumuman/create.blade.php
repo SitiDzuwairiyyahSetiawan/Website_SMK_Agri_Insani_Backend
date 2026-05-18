@@ -3,129 +3,501 @@
 @section('title', 'Tambah Pengumuman')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+
+<style>
+
+    .page-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        margin-bottom:32px;
+        flex-wrap:wrap;
+    }
+
+    .page-title{
+        font-size:38px;
+        font-weight:800;
+        color:white;
+        margin-bottom:8px;
+        line-height:1.1;
+    }
+
+    .page-subtitle{
+        color:rgba(255,255,255,.7);
+        margin:0;
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .modern-card{
+        border:none;
+        border-radius:28px;
+        background:white;
+        overflow:hidden;
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.05),
+            0 2px 10px rgba(0,0,0,.03);
+    }
+
+    .card-body-modern{
+        padding:32px;
+    }
+
+    .section-title{
+        font-size:13px;
+        font-weight:800;
+        color:#16a34a;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+        margin-bottom:22px;
+    }
+
+    .form-label{
+        font-size:14px;
+        font-weight:700;
+        color:#1f2937;
+        margin-bottom:10px;
+    }
+
+    .form-control,
+    textarea{
+        border-radius:18px !important;
+        border:1px solid #e5e7eb !important;
+        background:#f9fafb !important;
+        padding:16px 18px !important;
+        font-size:15px;
+        box-shadow:none !important;
+        color:#111827 !important;
+    }
+
+    textarea.form-control{
+        resize:none;
+        min-height:260px !important;
+        height:260px !important;
+        padding-top:18px !important;
+        line-height:1.7;
+    }
+
+    .form-control:focus,
+    textarea:focus{
+        border-color:#16a34a !important;
+        background:white !important;
+        box-shadow:
+            0 0 0 4px rgba(22,163,74,.10) !important;
+    }
+
+    .upload-preview{
+        width:100%;
+        height:280px;
+        border-radius:24px;
+        border:2px dashed #d1d5db;
+        background:#f9fafb;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        transition:.3s;
+    }
+
+    .upload-preview img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .upload-placeholder{
+        text-align:center;
+        padding:20px;
+    }
+
+    .upload-placeholder i{
+        font-size:58px;
+        color:#9ca3af;
+        margin-bottom:18px;
+    }
+
+    .upload-placeholder h6{
+        font-size:16px;
+        font-weight:700;
+        color:#6b7280;
+        margin:0;
+        word-break:break-word;
+    }
+
+    .custom-file{
+        position:relative;
+    }
+
+    .custom-file input[type=file]{
+        opacity:0;
+        position:absolute;
+        inset:0;
+        width:100%;
+        cursor:pointer;
+    }
+
+    .custom-file-label{
+        width:100%;
+        height:58px;
+        border-radius:18px;
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        );
+        color:white;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        font-weight:700;
+        cursor:pointer;
+        transition:.3s;
+    }
+
+    .custom-file-label:hover{
+        transform:translateY(-2px);
+        box-shadow:
+            0 10px 20px rgba(21,128,61,.20);
+    }
+
+    .form-switch{
+        padding-left:0;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+    }
+
+    /* FIX TEXT PUBLISH */
+    .form-check-label{
+        font-size:15px !important;
+        font-weight:700 !important;
+        color:#1f2937 !important;
+        margin:0 !important;
+    }
+
+    .form-switch .form-check-input{
+        width:58px;
+        height:30px;
+        cursor:pointer;
+        margin-left:auto !important;
+        flex-shrink:0;
+    }
+
+    .tips-card{
+        border:none;
+        border-radius:24px;
+        background:linear-gradient(
+            135deg,
+            #f0fdf4,
+            #dcfce7
+        );
+        padding:24px;
+    }
+
+    .tips-title{
+        font-size:16px;
+        font-weight:800;
+        color:#166534;
+        margin-bottom:14px;
+    }
+
+    .tips-list{
+        padding-left:18px;
+        margin:0;
+    }
+
+    .tips-list li{
+        color:#166534;
+        margin-bottom:8px;
+        line-height:1.6;
+    }
+
+    .btn-back{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        background:#f3f4f6 !important;
+        color:#374151 !important;
+        transition:.3s;
+    }
+
+    .btn-back:hover{
+        background:#e5e7eb !important;
+    }
+
+    .btn-save{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 28px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d
+        ) !important;
+        transition:.3s;
+    }
+
+    .btn-save:hover{
+        transform:translateY(-2px);
+        box-shadow:
+            0 10px 20px rgba(21,128,61,.25);
+    }
+
+</style>
+
+{{-- HEADER --}}
+<div class="page-header">
+
     <div>
-        <h2 class="mb-0">Tambah Pengumuman Baru</h2>
-        <p class="text-muted">Buat pengumuman, jadwal, atau informasi penting</p>
+
+        <h1 class="page-title">
+            Tambah Pengumuman
+        </h1>
+
+        <p class="page-subtitle">
+            Tambahkan pengumuman baru untuk website sekolah
+        </p>
+
     </div>
+
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-body">
-        <form action="{{ route('admin.pengumuman.store') }}" method="POST" enctype="multipart/form-data">
+<div class="modern-card">
+
+    <div class="card-body-modern">
+
+        <form action="{{ route('admin.pengumuman.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
             @csrf
 
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="mb-3">
-                        <label for="judul" class="form-label fw-bold">Judul Pengumuman <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul') }}" required>
-                        <div class="form-text">Judul akan otomatis dibuatkan slug untuk URL.</div>
-                        @error('judul')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            <div class="row g-4">
+
+                {{-- LEFT --}}
+                <div class="col-lg-8">
+
+                    <div class="section-title">
+                        Informasi Pengumuman
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-muted"><i class="fas fa-link"></i> Preview Slug:</label>
-                        <div class="bg-light p-2 rounded" id="slugPreview"></div>
+                    {{-- JUDUL --}}
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Judul Pengumuman
+                        </label>
+
+                        <input type="text"
+                               name="judul"
+                               class="form-control"
+                               placeholder="Masukkan judul pengumuman">
+
                     </div>
 
-                    <div class="mb-3">
-                        <label for="isi" class="form-label fw-bold">Isi Pengumuman <span class="text-danger">*</span></label>
-                        <textarea class="form-control @error('isi') is-invalid @enderror" id="isi" name="isi" rows="10" placeholder="Tulis isi pengumuman di sini...">{{ old('isi') }}</textarea>
-                        @error('isi')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    {{-- TANGGAL --}}
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Tanggal Pengumuman
+                        </label>
+
+                        <input type="date"
+                               name="tanggal"
+                               class="form-control"
+                               value="{{ date('Y-m-d') }}">
+
                     </div>
+
+                    {{-- ISI --}}
+                    <div>
+
+                        <label class="form-label">
+                            Isi Pengumuman
+                        </label>
+
+                        <textarea name="isi"
+                                  class="form-control"
+                                  placeholder="Tulis isi pengumuman..."></textarea>
+
+                    </div>
+
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-header bg-light"><i class="fas fa-paperclip"></i> Unggah File (opsional)</div>
-                        <div class="card-body">
-                            <div class="text-center mb-3">
-                                <div id="filePreview" class="border rounded p-3 bg-light">
-                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted"></i>
-                                    <p class="text-muted small mt-2">Belum ada file</p>
+                {{-- RIGHT --}}
+                <div class="col-lg-4">
+
+                    {{-- FILE --}}
+                    <div class="modern-card mb-4">
+
+                        <div class="card-body-modern">
+
+                            <div class="section-title">
+                                Upload File
+                            </div>
+
+                            <div id="filePreview"
+                                 class="upload-preview mb-4">
+
+                                <div class="upload-placeholder">
+
+                                    <i class="fas fa-file-upload"></i>
+
+                                    <h6>
+                                        Belum Ada File
+                                    </h6>
+
                                 </div>
+
                             </div>
-                            <input type="file" class="form-control @error('file') is-invalid @enderror" id="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
-                            <div class="form-text mt-2">
-                                <small><i class="fas fa-info-circle"></i> Format: JPG, PNG, PDF, DOC, DOCX (Max 5MB)</small>
+
+                            <div class="custom-file">
+
+                                <label class="custom-file-label">
+
+                                    <i class="fas fa-upload"></i>
+                                    Pilih File
+
+                                    <input type="file"
+                                           name="file"
+                                           id="file"
+                                           accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+
+                                </label>
+
                             </div>
-                            @error('file')<div class="invalid-feedback">{{ $message }}</div>@enderror
+
                         </div>
+
                     </div>
 
-                    <div class="card mb-3">
-                        <div class="card-header bg-light"><i class="fas fa-calendar-alt"></i> Informasi Publikasi</div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="tanggal" class="form-label fw-bold">Tanggal Pengumuman <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required>
-                                @error('tanggal')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    {{-- SETTINGS --}}
+                    <div class="modern-card mb-4">
+
+                        <div class="card-body-modern">
+
+                            <div class="section-title">
+                                Pengaturan
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Status Publikasi</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="is_published" id="published" value="1" {{ old('is_published', '1') == '1' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="published"><i class="fas fa-globe text-success"></i> Publikasikan</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="is_published" id="draft" value="0" {{ old('is_published') == '0' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="draft"><i class="fas fa-pencil-alt text-secondary"></i> Simpan sebagai Draft</label>
-                                </div>
+
+                            <div class="form-check form-switch">
+
+                                <label class="form-check-label"
+                                       for="publishSwitch">
+                                    Publish Pengumuman
+                                </label>
+
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="publishSwitch"
+                                       name="is_published"
+                                       checked>
+
                             </div>
+
                         </div>
+
                     </div>
 
-                    <div class="alert alert-info">
-                        <i class="fas fa-lightbulb"></i> <strong>Tips:</strong>
-                        <ul class="mb-0 mt-2 small">
-                            <li>Gunakan judul yang jelas dan informatif.</li>
-                            <li>File opsional (misalnya jadwal, kalender akademik).</li>
-                            <li>Pengumuman yang dipublikasi akan tampil di h depan.</li>
+                    {{-- TIPS --}}
+                    <div class="tips-card">
+
+                        <div class="tips-title">
+                            Tips Upload
+                        </div>
+
+                        <ul class="tips-list">
+
+                            <li>Gunakan file dengan ukuran optimal</li>
+                            <li>Bisa upload gambar atau dokumen PDF</li>
+                            <li>Gunakan judul yang jelas & singkat</li>
+                            <li>Pastikan isi pengumuman mudah dipahami</li>
+
                         </ul>
+
                     </div>
+
                 </div>
+
             </div>
 
-            <div class="border-top pt-3 mt-3">
-                <a href="{{ route('admin.galeri.index') }}"
-                   class="btn btn-secondary">
-                    Kembali
+            {{-- BUTTON --}}
+            <div class="border-top pt-4 mt-4 d-flex gap-3">
+
+                <a href="{{ route('admin.pengumuman.index') }}"
+                   class="btn btn-back">
+
+                    Batal
+
                 </a>
-                <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save"></i> Simpan </button>            </div>
+
+                <button type="submit"
+                        class="btn btn-save">
+
+                    <i class="fas fa-save me-2"></i>
+                    Simpan Pengumuman
+
+                </button>
+
+            </div>
+
         </form>
+
     </div>
+
 </div>
 
 @push('scripts')
-<script>
-    // Preview slug
-    document.getElementById('judul').addEventListener('keyup', function() {
-        let judul = this.value;
-        let slug = judul.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        let previewDiv = document.getElementById('slugPreview');
-        previewDiv.innerHTML = slug ? '<code>{{ url("/pengumuman") }}/' + slug + '</code>' : '<span class="text-muted">Slug akan muncul setelah judul diisi</span>';
-    });
-    document.getElementById('judul').dispatchEvent(new Event('keyup'));
 
-    // Preview file (gambar atau nama file)
-    document.getElementById('file').addEventListener('change', function(e) {
-        const file = e.target.files[0];
+<script>
+
+document.getElementById('file')
+.addEventListener('change', function(e)
+{
+    const file = e.target.files[0];
+
+    if(file)
+    {
         const preview = document.getElementById('filePreview');
-        if (file) {
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    preview.innerHTML = `<img src="${ev.target.result}" class="img-fluid rounded" style="max-height: 200px;">`;
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.innerHTML = `<div class="p-3"><i class="fas fa-file-alt fa-3x text-primary"></i><p class="mt-2">${file.name}</p></div>`;
+
+        if(file.type.startsWith('image/'))
+        {
+            const reader = new FileReader();
+
+            reader.onload = function(e)
+            {
+                preview.innerHTML =
+                `
+                    <img src="${e.target.result}">
+                `;
             }
-        } else {
-            preview.innerHTML = `<i class="fas fa-cloud-upload-alt fa-3x text-muted"></i><p class="text-muted small mt-2">Belum ada file</p>`;
+
+            reader.readAsDataURL(file);
         }
-    });
+        else
+        {
+            preview.innerHTML =
+            `
+                <div class="upload-placeholder">
+                    <i class="fas fa-file-alt"></i>
+
+                    <h6>
+                        ${file.name}
+                    </h6>
+                </div>
+            `;
+        }
+    }
+});
+
 </script>
+
 @endpush
+
 @endsection

@@ -13,6 +13,7 @@ class WhatsappLogController extends Controller
      */
     public function index()
     {
+        // terbaru di atas
         $whatsappLogs = WhatsappLog::orderBy('id', 'asc')->paginate(10);
 
         $statistik = [
@@ -29,38 +30,6 @@ class WhatsappLogController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -68,11 +37,14 @@ class WhatsappLogController extends Controller
         $log = WhatsappLog::findOrFail($id);
 
         // otomatis jadi dibaca
-        if ($log->status == 'pending') {
+        if ($log->status === 'pending') {
 
             $log->update([
                 'status' => 'dibaca'
             ]);
+
+            // refresh data terbaru
+            $log->refresh();
         }
 
         return view('admin.whatsapp.show', compact('log'));
@@ -83,14 +55,18 @@ class WhatsappLogController extends Controller
      */
     public function updateStatus(Request $request, string $id)
     {
+        $request->validate([
+            'status' => 'required|in:pending,dibaca,dibalas'
+        ]);
+
         $log = WhatsappLog::findOrFail($id);
 
-        // otomatis jadi dibalas
         $log->update([
-            'status' => 'dibalas'
+            'status' => $request->status
         ]);
 
         return response()->json([
+            'success' => true,
             'message' => 'Status berhasil diperbarui'
         ]);
     }

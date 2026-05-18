@@ -104,7 +104,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('pendaftaran.update');
 
     Route::put('/pendaftaran/{id}/status', [PendaftaranController::class, 'updateStatus'])
-    ->name('pendaftaran.updateStatus');
+        ->name('pendaftaran.updateStatus');
 
     Route::delete('/pendaftaran/{id}', [PendaftaranController::class, 'destroy'])
         ->name('pendaftaran.destroy');

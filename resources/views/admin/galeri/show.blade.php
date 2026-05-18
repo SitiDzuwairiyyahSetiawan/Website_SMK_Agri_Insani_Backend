@@ -4,74 +4,230 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h2 class="mb-0">Detail Galeri</h2>
-        <p class="text-muted">Lihat informasi lengkap foto galeri</p>
-    </div>
+<style>
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:32px;
+    flex-wrap:wrap;
+}
+
+.page-title{
+    font-size:38px;
+    font-weight:800;
+    color:white;
+    margin-bottom:8px;
+    line-height:1.1;
+}
+
+.page-subtitle{
+    color:rgba(255,255,255,.7);
+    margin:0;
+    font-size:15px;
+    font-weight:500;
+}
+
+.modern-card{
+    border:none;
+    border-radius:28px;
+    background:white;
+    overflow:hidden;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.05),
+        0 2px 10px rgba(0,0,0,.03);
+}
+
+.card-body-modern{
+    padding:32px;
+}
+
+.section-title{
+    font-size:13px;
+    font-weight:800;
+    color:#16a34a;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:22px;
+}
+
+.gallery-image{
+    width:100%;
+    max-height:420px;
+    height:auto;
+    object-fit:contain;
+    background:#f3f4f6;
+    padding:10px;
+    border-radius:24px;
+}
+
+.empty-image{
+    width:100%;
+    height:420px;
+    border-radius:24px;
+    border:2px dashed #d1d5db;
+    background:#f9fafb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.empty-image i{
+    font-size:70px;
+    color:#9ca3af;
+    margin-bottom:18px;
+}
+
+.empty-image h5{
+    font-weight:700;
+    color:#6b7280;
+}
+
+.slider-title{
+    font-size:38px;
+    font-weight:800;
+    color:#111827;
+    line-height:1.2;
+    margin-bottom:24px;
+}
+
+.meta-wrapper{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.meta-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 18px;
+    border-radius:18px;
+    background:#f9fafb;
+    border:1px solid #f3f4f6;
+    color:#374151;
+    font-size:14px;
+    font-weight:700;
+}
+
+.description-box{
+    line-height:2;
+    color:#4b5563;
+    font-size:15px;
+}
+
+.btn-back{
+    border:none !important;
+    border-radius:18px !important;
+    padding:14px 24px !important;
+    font-weight:700;
+    background:#f3f4f6 !important;
+    color:#374151 !important;
+}
+
+.copy-group{
+    display:flex;
+    overflow:hidden;
+    border-radius:18px;
+    border:1px solid #e5e7eb;
+    background:#f9fafb;
+}
+
+.copy-input{
+    flex:1;
+    border:none !important;
+    background:transparent !important;
+    padding:16px !important;
+    font-size:14px;
+    box-shadow:none !important;
+}
+
+.copy-btn{
+    width:60px;
+    border:none;
+    background:linear-gradient(135deg,#166534,#15803d);
+    color:white;
+    font-size:18px;
+}
+
+</style>
+
+{{-- HEADER --}}
+<div class="page-header">
 
     <div>
-        <a href="{{ route('admin.galeri.index') }}"
-           class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i>
-            Kembali
-        </a>
+        <h1 class="page-title">Detail Galeri</h1>
+        <p class="page-subtitle">Informasi lengkap foto dokumentasi sekolah</p>
     </div>
+
+    <a href="{{ route('admin.galeri.index') }}" class="btn btn-back">
+        <i class="fas fa-arrow-left me-2"></i>
+        Kembali
+    </a>
+
 </div>
 
-<div class="row">
+<div class="row g-4">
 
-    <!-- FOTO & DESKRIPSI -->
-    <div class="col-md-8">
+    {{-- LEFT --}}
+    <div class="col-lg-8">
 
-        <div class="card shadow-sm border-0 mb-4">
+        <div class="modern-card">
 
-            <div class="card-body">
+            <div class="card-body-modern">
 
-                <div class="mb-4 text-center">
+                {{-- IMAGE --}}
+                <div class="mb-4">
 
                     @if($galeri->gambar)
 
                         <img src="{{ asset('storage/' . $galeri->gambar) }}"
-                             alt="{{ $galeri->judul }}"
-                             class="img-fluid rounded shadow-sm"
-                             style="max-height: 500px; width:100%; object-fit: cover;">
+                             class="gallery-image"
+                             alt="{{ $galeri->judul }}">
 
                     @else
 
-                        <div class="bg-light rounded p-5 text-center">
-                            <i class="fas fa-image fa-5x text-muted"></i>
-                            <p class="text-muted mt-3">
-                                Tidak ada gambar
-                            </p>
+                        <div class="empty-image">
+                            <div>
+                                <i class="fas fa-image"></i>
+                                <h5>Belum Ada Gambar</h5>
+                            </div>
                         </div>
 
                     @endif
 
                 </div>
 
-                <h1 class="h3 mb-3 fw-bold">
+                {{-- TITLE --}}
+                <h1 class="slider-title">
                     {{ $galeri->judul }}
                 </h1>
 
-                <div class="text-muted mb-4">
+                {{-- META --}}
+                <div class="meta-wrapper mb-5">
 
-                    <i class="fas fa-calendar-alt"></i>
-                    {{ $galeri->created_at->format('d F Y') }}
+                    <div class="meta-chip">
+                        <i class="fas fa-calendar-alt"></i>
+                        {{ $galeri->created_at->format('d M Y') }}
+                    </div>
 
-                    <span class="mx-2">|</span>
-
-                    <i class="fas fa-clock"></i>
-                    {{ $galeri->created_at->format('H:i') }}
+                    <div class="meta-chip">
+                        <i class="fas fa-clock"></i>
+                        {{ $galeri->created_at->format('H:i') }}
+                    </div>
 
                 </div>
 
-                <div class="border-top pt-4">
+                {{-- DESCRIPTION --}}
+                <div class="section-title">
+                    Deskripsi Galeri
+                </div>
 
-                    <div style="line-height: 1.9; font-size:15px;">
-                        {!! nl2br(e($galeri->deskripsi ?? 'Tidak ada deskripsi.')) !!}
-                    </div>
-
+                <div class="description-box">
+                    {!! nl2br(e($galeri->deskripsi ?? 'Tidak ada deskripsi.')) !!}
                 </div>
 
             </div>
@@ -80,91 +236,55 @@
 
     </div>
 
-    <!-- SIDEBAR -->
-    <div class="col-md-4">
+    {{-- RIGHT --}}
+    <div class="col-lg-4">
 
-        <!-- INFO -->
-        <div class="card shadow-sm border-0 mb-4">
+        {{-- INFO --}}
+        <div class="modern-card mb-4">
 
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-info-circle"></i>
-                    Informasi Foto
-                </h5>
-            </div>
+            <div class="card-body-modern">
 
-            <div class="card-body">
+                <div class="section-title">
+                    Informasi Galeri
+                </div>
 
-                <table class="table table-sm table-borderless">
+                <div class="meta-chip mb-3 w-100">
+                    ID# {{ $galeri->id }}
+                </div>
 
-                    <tr>
-                        <td width="40%">
-                            <strong>ID</strong>
-                        </td>
+                <div class="meta-chip mb-3 w-100">
+                    <i class="fas fa-calendar"></i>
+                    {{ $galeri->created_at->format('d/m/Y H:i') }}
+                </div>
 
-                        <td>
-                            #{{ $galeri->id }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Judul</strong>
-                        </td>
-
-                        <td>
-                            {{ $galeri->judul }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Dibuat</strong>
-                        </td>
-
-                        <td>
-                            {{ $galeri->created_at->format('d/m/Y H:i') }}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Diupdate</strong>
-                        </td>
-
-                        <td>
-                            {{ $galeri->updated_at->format('d/m/Y H:i') }}
-                        </td>
-                    </tr>
-
-                </table>
+                <div class="meta-chip w-100">
+                    <i class="fas fa-edit"></i>
+                    Update: {{ $galeri->updated_at->diffForHumans() }}
+                </div>
 
             </div>
 
         </div>
 
-        <!-- LINK FOTO -->
-        <div class="card shadow-sm border-0">
+        {{-- LINK --}}
+        <div class="modern-card">
 
-            <div class="card-header bg-info text-white">
-                <h5 class="mb-0">
-                    <i class="fas fa-link"></i>
-                    Link Foto
-                </h5>
-            </div>
+            <div class="card-body-modern">
 
-            <div class="card-body">
+                <div class="section-title">
+                    Link Gambar
+                </div>
 
-                <div class="input-group">
+                <div class="copy-group">
 
                     <input type="text"
-                           class="form-control"
-                           id="fotoUrl"
+                           id="imageUrl"
+                           class="copy-input"
                            value="{{ asset('storage/' . $galeri->gambar) }}"
                            readonly>
 
-                    <button class="btn btn-primary"
-                            type="button"
+                    <button type="button"
+                            class="copy-btn"
                             onclick="copyToClipboard()">
 
                         <i class="fas fa-copy"></i>
@@ -173,79 +293,9 @@
 
                 </div>
 
-                <small class="text-muted mt-2 d-block">
-                    Klik tombol copy untuk menyalin link foto
+                <small class="text-muted d-block mt-3">
+                    Klik untuk menyalin link gambar
                 </small>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- MODAL DELETE -->
-<div class="modal fade"
-     id="deleteModal"
-     tabindex="-1"
-     data-bs-backdrop="static">
-
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content">
-
-            <div class="modal-header bg-danger text-white">
-
-                <h5 class="modal-title">
-                    <i class="fas fa-trash-alt me-2"></i>
-                    Konfirmasi Hapus
-                </h5>
-
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal">
-                </button>
-
-            </div>
-
-            <div class="modal-body">
-
-                <p>Apakah Anda yakin ingin menghapus foto:</p>
-
-                <p class="fw-bold text-danger">
-                    {{ $galeri->judul }}
-                </p>
-
-                <p class="text-muted small">
-                    Tindakan ini tidak dapat dibatalkan!
-                </p>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
-                    Batal
-                </button>
-
-                <form action="{{ route('admin.galeri.destroy', $galeri->id) }}"
-                      method="POST"
-                      class="d-inline">
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit"
-                            class="btn btn-danger">
-
-                        Ya, Hapus
-
-                    </button>
-
-                </form>
 
             </div>
 
@@ -258,28 +308,14 @@
 @push('scripts')
 
 <script>
-
-function confirmDelete()
-{
-    let modal = new bootstrap.Modal(
-        document.getElementById('deleteModal')
-    );
-
-    modal.show();
-}
-
 function copyToClipboard()
 {
-    const copyText = document.getElementById("fotoUrl");
-
+    const copyText = document.getElementById('imageUrl');
     copyText.select();
     copyText.setSelectionRange(0, 99999);
-
-    document.execCommand("copy");
-
-    alert("Link foto berhasil disalin!");
+    navigator.clipboard.writeText(copyText.value);
+    alert('Link gambar berhasil disalin!');
 }
-
 </script>
 
 @endpush

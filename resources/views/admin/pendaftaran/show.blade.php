@@ -5,319 +5,687 @@
 @section('content')
 
 <style>
-    .detail-card {
-        border: none;
-        border-radius: 18px;
-        overflow: hidden;
+
+    .page-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        margin-bottom:32px;
+        flex-wrap:wrap;
     }
 
-    .hero-section {
-        background: linear-gradient(135deg, #0d6efd, #4f8cff);
-        border-radius: 16px;
-        padding: 40px 30px;
-        color: white;
-        position: relative;
-        overflow: hidden;
+    .page-title{
+        font-size:38px;
+        font-weight:800;
+        color:var(--green-900);
+        margin-bottom:8px;
+        line-height:1.1;
     }
 
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        right: -40px;
-        top: -40px;
-        width: 180px;
-        height: 180px;
-        background: rgba(255,255,255,0.08);
-        border-radius: 50%;
+    .page-subtitle{
+        color:#6b7280;
+        margin:0;
+        font-size:15px;
+        font-weight:500;
     }
 
-    .hero-section::after {
-        content: '';
-        position: absolute;
-        bottom: -50px;
-        left: -50px;
-        width: 160px;
-        height: 160px;
-        background: rgba(255,255,255,0.06);
-        border-radius: 50%;
+    .modern-card{
+        border:none;
+        border-radius:28px;
+        background:white;
+        overflow:hidden;
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.05),
+            0 2px 10px rgba(0,0,0,.03);
     }
 
-    .student-icon {
-        width: 90px;
-        height: 90px;
-        background: rgba(255,255,255,0.15);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        margin-bottom: 20px;
+    .card-body-modern{
+        padding:32px;
     }
 
-    .student-icon i {
-        font-size: 42px;
+    .section-title{
+        font-size:13px;
+        font-weight:800;
+        color:#16a34a;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+        margin-bottom:22px;
     }
 
-    .info-table tr td {
-        padding: 14px 10px;
-        vertical-align: middle;
+    .hero-box{
+        width:100%;
+        min-height:420px;
+        border-radius:24px;
+        background:linear-gradient(135deg,#166534,#14532d);
+        position:relative;
+        overflow:hidden;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        padding:40px;
     }
 
-    .info-table tr:not(:last-child) {
-        border-bottom: 1px solid #eee;
+    .hero-box::before{
+        content:'';
+        position:absolute;
+        right:-40px;
+        top:-40px;
+        width:220px;
+        height:220px;
+        border-radius:50%;
+        background:rgba(255,255,255,.06);
     }
 
-    .label-title {
-        font-weight: 600;
-        color: #555;
+    .hero-box::after{
+        content:'';
+        position:absolute;
+        left:-50px;
+        bottom:-50px;
+        width:180px;
+        height:180px;
+        border-radius:50%;
+        background:rgba(255,255,255,.04);
     }
 
-    .status-badge {
-        font-size: 13px;
-        padding: 8px 14px;
-        border-radius: 50px;
+    .student-avatar{
+        width:110px;
+        height:110px;
+        border-radius:30px;
+        background:rgba(255,255,255,.12);
+        backdrop-filter:blur(8px);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:0 auto 24px;
+        box-shadow:0 10px 30px rgba(0,0,0,.15);
     }
 
-    .file-box {
-        background: #f8f9fa;
-        border-radius: 10px;
-        padding: 10px 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
+    .student-avatar i{
+        font-size:48px;
+        color:white;
     }
+
+    .hero-name{
+        font-size:38px;
+        font-weight:800;
+        color:white;
+        margin-bottom:12px;
+        line-height:1.2;
+    }
+
+    .hero-school{
+        color:rgba(255,255,255,.85);
+        font-size:16px;
+        margin-bottom:24px;
+        font-weight:500;
+    }
+
+    .meta-wrapper{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .meta-chip{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 18px;
+        border-radius:18px;
+        background:rgba(255,255,255,.10);
+        border:1px solid rgba(255,255,255,.08);
+        color:white;
+        font-size:14px;
+        font-weight:700;
+        backdrop-filter:blur(8px);
+    }
+
+    .info-item{
+        padding:16px 0;
+        border-bottom:1px dashed #e5e7eb;
+    }
+
+    .info-item:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+    }
+
+    .info-label{
+        font-size:13px;
+        color:#9ca3af;
+        margin-bottom:6px;
+        font-weight:600;
+    }
+
+    .info-value{
+        font-size:15px;
+        font-weight:700;
+        color:#111827;
+        line-height:1.8;
+    }
+
+    .status-badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 16px;
+        border-radius:999px;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .status-warning{
+        background:#fef3c7;
+        color:#92400e;
+    }
+
+    .status-secondary{
+        background:#e5e7eb;
+        color:#374151;
+    }
+
+    .status-info{
+        background:#dbeafe;
+        color:#1d4ed8;
+    }
+
+    .status-primary{
+        background:#dbeafe;
+        color:#2563eb;
+    }
+
+    .status-success{
+        background:#dcfce7;
+        color:#166534;
+    }
+
+    .status-danger{
+        background:#fee2e2;
+        color:#b91c1c;
+    }
+
+    .document-box{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        padding:18px;
+        border-radius:20px;
+        background:#f9fafb;
+        border:1px solid #eef2f7;
+        margin-bottom:14px;
+    }
+
+    .document-info{
+        display:flex;
+        align-items:center;
+        gap:14px;
+    }
+
+    .document-icon{
+        width:52px;
+        height:52px;
+        border-radius:16px;
+        background:#dcfce7;
+        color:#166534;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:20px;
+    }
+
+    .btn-download{
+        border:none !important;
+        border-radius:14px !important;
+        padding:10px 18px !important;
+        background:linear-gradient(135deg,#166534,#15803d) !important;
+        color:white !important;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .btn-back{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        background:#f3f4f6 !important;
+        color:#374151 !important;
+    }
+
+    .btn-edit{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #f59e0b,
+            #d97706
+        ) !important;
+    }
+
+    .btn-delete{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        ) !important;
+    }
+
+    @media(max-width:768px){
+
+        .page-title{
+            font-size:30px;
+        }
+
+        .hero-name{
+            font-size:28px;
+        }
+
+        .hero-box{
+            min-height:320px;
+            padding:28px;
+        }
+
+        .card-body-modern{
+            padding:22px;
+        }
+
+    }
+
 </style>
 
-<!-- HEADER -->
-<div class="d-flex justify-content-between align-items-center mb-4">
+{{-- HEADER --}}
+<div class="page-header">
 
     <div>
-        <h2 class="fw-bold mb-1">Detail Pendaftaran</h2>
-        <p class="text-muted mb-0">Informasi lengkap calon siswa</p>
+
+        <h1 class="page-title">
+            Detail Pendaftaran
+        </h1>
+
+        <p class="page-subtitle">
+            Informasi lengkap calon siswa baru
+        </p>
+
     </div>
 
-    <a href="{{ route('admin.pendaftaran.index') }}"
-       class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Kembali
-    </a>
+    <div class="d-flex gap-2 flex-wrap">
+
+        <a href="{{ route('admin.pendaftaran.index') }}"
+           class="btn btn-back">
+
+            <i class="fas fa-arrow-left me-2"></i>
+            Kembali
+
+        </a>
+
+    </div>
 
 </div>
 
-<div class="row justify-content-center">
+<div class="row g-4">
 
-    <div class="col-lg-10">
+    {{-- LEFT --}}
+    <div class="col-lg-8">
 
-        <div class="card detail-card shadow-sm">
+        <div class="modern-card">
 
-            <div class="card-body p-4">
+            <div class="card-body-modern">
 
-                <!-- HERO -->
-                <div class="hero-section mb-4 text-center">
-
-                    <div class="student-icon">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-
-                    <h3 class="fw-bold mb-2">
-                        {{ $pendaftaran->nama_lengkap }}
-                    </h3>
-
-                    <div class="mb-2">
-                        {{ $pendaftaran->asal_sekolah }}
-                    </div>
-
-                    <small>
-                        {{ $pendaftaran->created_at->format('d F Y H:i') }}
-                    </small>
-
-                </div>
-
-                <!-- DATA SISWA -->
-                <h5 class="fw-bold mb-3">Data Siswa</h5>
-
-                <div class="table-responsive mb-4">
-
-                    <table class="table info-table">
-
-                        <tr>
-                            <td class="label-title">NISN</td>
-                            <td>{{ $pendaftaran->nisn }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">NIK</td>
-                            <td>{{ $pendaftaran->nik ?? '-' }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">TTL</td>
-                            <td>
-                                {{ $pendaftaran->tempat_lahir }},
-                                {{ \Carbon\Carbon::parse($pendaftaran->tanggal_lahir)->format('d F Y') }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">Jenis Kelamin</td>
-                            <td>{{ $pendaftaran->jenis_kelamin }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">Alamat</td>
-                            <td>{{ $pendaftaran->alamat }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">No HP</td>
-                            <td>
-                                <a href="https://wa.me/{{ $pendaftaran->no_hp }}"
-                                   target="_blank"
-                                   class="text-success text-decoration-none">
-                                    {{ $pendaftaran->no_hp }}
-                                </a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">Email</td>
-                            <td>{{ $pendaftaran->email }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">Asal Sekolah</td>
-                            <td>{{ $pendaftaran->asal_sekolah }}</td>
-                        </tr>
-
-                        <tr>
-                            <td class="label-title">Program</td>
-                            <td>
-                                <span class="badge bg-primary status-badge">
-                                    {{ $pendaftaran->program->nama_program_unggulan ?? '-' }}
-                                </span>
-                            </td>
-                        </tr>
-
-                    </table>
-
-                </div>
-
-                <!-- ORANG TUA -->
-                <h5 class="fw-bold mb-3">Data Orang Tua</h5>
-
-                <table class="table info-table mb-4">
-
-                    <tr>
-                        <td class="label-title">Ayah</td>
-                        <td>{{ $pendaftaran->nama_ayah ?? '-' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="label-title">Ibu</td>
-                        <td>{{ $pendaftaran->nama_ibu ?? '-' }}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="label-title">No Wali</td>
-                        <td>{{ $pendaftaran->no_hp_wali ?? '-' }}</td>
-                    </tr>
-
-                </table>
-
-                <!-- FILE DOKUMEN -->
-                <h5 class="fw-bold mb-3">Dokumen</h5>
-
+                {{-- HERO --}}
                 <div class="mb-4">
 
-                    <div class="file-box">
-                        <span>Foto Siswa</span>
-                        @if($pendaftaran->foto_siswa)
-                            <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'foto']) }}"
-                               class="btn btn-sm btn-primary">
-                                Download
-                            </a>
-                        @else
-                            <span class="text-muted">Tidak ada</span>
-                        @endif
-                    </div>
+                    <div class="hero-box">
 
-                    <div class="file-box">
-                        <span>KK</span>
-                        @if($pendaftaran->file_kk)
-                            <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'kk']) }}"
-                               class="btn btn-sm btn-primary">
-                                Download
-                            </a>
-                        @else
-                            <span class="text-muted">Tidak ada</span>
-                        @endif
-                    </div>
+                        <div>
 
-                    <div class="file-box">
-                        <span>Transkrip Nilai</span>
-                        @if($pendaftaran->transkrip_nilai)
-                            <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'transkrip']) }}"
-                               class="btn btn-sm btn-primary">
-                                Download
-                            </a>
-                        @else
-                            <span class="text-muted">Tidak ada</span>
-                        @endif
+                            <div class="student-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+
+                            <h1 class="hero-name">
+                                {{ $pendaftaran->nama_lengkap }}
+                            </h1>
+
+                            <div class="hero-school">
+                                {{ $pendaftaran->asal_sekolah }}
+                            </div>
+
+                            <div class="meta-wrapper">
+
+                                <div class="meta-chip">
+                                    <i class="fas fa-id-card"></i>
+                                    NISN {{ $pendaftaran->nisn }}
+                                </div>
+
+                                <div class="meta-chip">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    {{ $pendaftaran->created_at->format('d M Y') }}
+                                </div>
+
+                                <div class="meta-chip">
+                                    <i class="fas fa-clock"></i>
+                                    {{ $pendaftaran->created_at->format('H:i') }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-                <!-- STATUS -->
-                <h5 class="fw-bold mb-3">Status Pendaftaran</h5>
+                {{-- DATA SISWA --}}
+                <div class="section-title">
+                    Data Siswa
+                </div>
 
-                @php
-                    $status = $pendaftaran->status;
-                @endphp
+                <div class="info-item">
+                    <div class="info-label">NIK</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->nik ?? '-' }}
+                    </div>
+                </div>
 
-                <div class="mb-4">
+                <div class="info-item">
+                    <div class="info-label">Tempat, Tanggal Lahir</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->tempat_lahir }},
+                        {{ \Carbon\Carbon::parse($pendaftaran->tanggal_lahir)->format('d F Y') }}
+                    </div>
+                </div>
 
-                    @if($status == 'pending')
-                        <span class="badge bg-warning status-badge">Pending</span>
+                <div class="info-item">
+                    <div class="info-label">Jenis Kelamin</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->jenis_kelamin }}
+                    </div>
+                </div>
 
-                    @elseif($status == 'dibaca')
-                        <span class="badge bg-secondary status-badge">Dibaca</span>
+                <div class="info-item">
+                    <div class="info-label">Alamat</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->alamat }}
+                    </div>
+                </div>
 
-                    @elseif($status == 'diverifikasi')
-                        <span class="badge bg-info status-badge">Diverifikasi</span>
+                <div class="info-item">
+                    <div class="info-label">No HP</div>
+                    <div class="info-value">
+                        <a href="https://wa.me/{{ $pendaftaran->no_hp }}"
+                           target="_blank"
+                           class="text-success text-decoration-none">
 
-                    @elseif($status == 'lolos_berkas')
-                        <span class="badge bg-primary status-badge">Lolos Berkas</span>
+                            {{ $pendaftaran->no_hp }}
 
-                    @elseif($status == 'diterima')
-                        <span class="badge bg-success status-badge">Diterima</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->email }}
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">Program Unggulan</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->program->nama_program_unggulan ?? '-' }}
+                    </div>
+                </div>
+
+                {{-- ORANG TUA --}}
+                <div class="section-title mt-5">
+                    Data Orang Tua
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">Nama Ayah</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->nama_ayah ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">Nama Ibu</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->nama_ibu ?? '-' }}
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">No HP Wali</div>
+                    <div class="info-value">
+                        {{ $pendaftaran->no_hp_wali ?? '-' }}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {{-- RIGHT --}}
+    <div class="col-lg-4">
+
+        {{-- STATUS --}}
+        <div class="modern-card mb-4">
+
+            <div class="card-body-modern">
+
+                <div class="section-title">
+                    Status Pendaftaran
+                </div>
+
+                <div class="info-item">
+
+                    <div class="info-label">
+                        Status Saat Ini
+                    </div>
+
+                    <div class="info-value">
+
+                        @if($pendaftaran->status == 'pending')
+
+                            <div class="status-badge status-warning">
+                                <i class="fas fa-clock"></i>
+                                Pending
+                            </div>
+
+                        @elseif($pendaftaran->status == 'dibaca')
+
+                            <div class="status-badge status-secondary">
+                                <i class="fas fa-book-open"></i>
+                                Dibaca
+                            </div>
+
+                        @elseif($pendaftaran->status == 'diverifikasi')
+
+                            <div class="status-badge status-info">
+                                <i class="fas fa-check-circle"></i>
+                                Diverifikasi
+                            </div>
+
+                        @elseif($pendaftaran->status == 'lolos_berkas')
+
+                            <div class="status-badge status-primary">
+                                <i class="fas fa-file-alt"></i>
+                                Lolos Berkas
+                            </div>
+
+                        @elseif($pendaftaran->status == 'diterima')
+
+                            <div class="status-badge status-success">
+                                <i class="fas fa-user-check"></i>
+                                Diterima
+                            </div>
+
+                        @else
+
+                            <div class="status-badge status-danger">
+                                <i class="fas fa-times-circle"></i>
+                                Ditolak
+                            </div>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {{-- DOKUMEN --}}
+        <div class="modern-card">
+
+            <div class="card-body-modern">
+
+                <div class="section-title">
+                    Dokumen Pendaftaran
+                </div>
+
+                {{-- FOTO --}}
+                <div class="document-box">
+
+                    <div class="document-info">
+
+                        <div class="document-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+
+                        <div>
+
+                            <div class="fw-bold">
+                                Foto Siswa
+                            </div>
+
+                            <small class="text-muted">
+                                File upload siswa
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    @if($pendaftaran->foto_siswa)
+
+                        <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'foto']) }}"
+                           class="btn btn-download">
+
+                            Download
+
+                        </a>
 
                     @else
-                        <span class="badge bg-danger status-badge">Ditolak</span>
+
+                        <small class="text-muted">
+                            Tidak ada
+                        </small>
+
                     @endif
 
                 </div>
 
-                <!-- TRACKING ADMIN -->
-                <h5 class="fw-bold mb-3">Tracking Admin</h5>
+                {{-- KK --}}
+                <div class="document-box">
 
-                <table class="table info-table">
+                    <div class="document-info">
 
-                    <tr>
-                        <td class="label-title">Diverifikasi Oleh</td>
-                        <td>{{ $pendaftaran->verified_by ?? '-' }}</td>
-                    </tr>
+                        <div class="document-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
 
-                    <tr>
-                        <td class="label-title">Waktu Verifikasi</td>
-                        <td>{{ $pendaftaran->verified_at ?? '-' }}</td>
-                    </tr>
+                        <div>
 
-                    <tr>
-                        <td class="label-title">Catatan Admin</td>
-                        <td>{{ $pendaftaran->catatan_admin ?? '-' }}</td>
-                    </tr>
+                            <div class="fw-bold">
+                                Kartu Keluarga
+                            </div>
 
-                </table>
+                            <small class="text-muted">
+                                Dokumen KK
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    @if($pendaftaran->file_kk)
+
+                        <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'kk']) }}"
+                           class="btn btn-download">
+
+                            Download
+
+                        </a>
+
+                    @else
+
+                        <small class="text-muted">
+                            Tidak ada
+                        </small>
+
+                    @endif
+
+                </div>
+
+                {{-- TRANSKRIP --}}
+                <div class="document-box mb-0">
+
+                    <div class="document-info">
+
+                        <div class="document-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+
+                        <div>
+
+                            <div class="fw-bold">
+                                Transkrip Nilai
+                            </div>
+
+                            <small class="text-muted">
+                                Dokumen nilai siswa
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    @if($pendaftaran->transkrip_nilai)
+
+                        <a href="{{ route('admin.pendaftaran.download', [$pendaftaran->id,'transkrip']) }}"
+                           class="btn btn-download">
+
+                            Download
+
+                        </a>
+
+                    @else
+
+                        <small class="text-muted">
+                            Tidak ada
+                        </small>
+
+                    @endif
+
+                </div>
 
             </div>
 

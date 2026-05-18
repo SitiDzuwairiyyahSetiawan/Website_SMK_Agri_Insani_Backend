@@ -4,23 +4,191 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<style>
+
+/* ===== HEADER (SAMA PERSIS SLIDER) ===== */
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:32px;
+    flex-wrap:wrap;
+}
+
+.page-title{
+    font-size:38px;
+    font-weight:800;
+    color:white;
+    margin-bottom:8px;
+    line-height:1.1;
+}
+
+.page-subtitle{
+    color:rgba(255,255,255,.7);
+    margin:0;
+    font-size:15px;
+    font-weight:500;
+}
+
+/* ===== CARD ===== */
+.modern-card{
+    border:none;
+    border-radius:28px;
+    background:white;
+    overflow:hidden;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.05),
+        0 2px 10px rgba(0,0,0,.03);
+}
+
+.card-body-modern{
+    padding:32px;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title{
+    font-size:13px;
+    font-weight:800;
+    color:#16a34a;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:22px;
+}
+
+/* ===== FORM ===== */
+.form-label{
+    font-size:14px;
+    font-weight:700;
+    color:#1f2937;
+    margin-bottom:10px;
+}
+
+.form-control,
+textarea{
+    border-radius:18px !important;
+    border:1px solid #e5e7eb !important;
+    background:#f9fafb !important;
+    padding:16px 18px !important;
+    font-size:15px;
+    box-shadow:none !important;
+}
+
+/* TEXTAREA FIX */
+textarea.form-control{
+    resize:none;
+    min-height:260px;
+    line-height:1.7;
+}
+
+.form-control:focus,
+textarea:focus{
+    border-color:#16a34a !important;
+    background:white !important;
+    box-shadow:0 0 0 4px rgba(22,163,74,.10) !important;
+}
+
+/* ===== UPLOAD ===== */
+.upload-preview{
+    width:100%;
+    height:280px;
+    border-radius:24px;
+    border:2px dashed #d1d5db;
+    background:#f9fafb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.upload-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.upload-placeholder{
+    text-align:center;
+}
+
+.upload-placeholder i{
+    font-size:58px;
+    color:#9ca3af;
+    margin-bottom:18px;
+}
+
+.upload-placeholder h6{
+    font-size:16px;
+    font-weight:700;
+    color:#6b7280;
+}
+
+/* ===== FILE ===== */
+.custom-file{
+    position:relative;
+}
+
+.custom-file input[type=file]{
+    opacity:0;
+    position:absolute;
+    inset:0;
+    width:100%;
+    cursor:pointer;
+}
+
+.custom-file-label{
+    width:100%;
+    height:58px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#166534,#15803d);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-weight:700;
+}
+
+/* ===== BUTTON ===== */
+.btn-back{
+    border:none !important;
+    border-radius:18px !important;
+    padding:14px 24px !important;
+    font-weight:700;
+    background:#f3f4f6 !important;
+    color:#374151 !important;
+}
+
+.btn-save{
+    border:none !important;
+    border-radius:18px !important;
+    padding:14px 28px !important;
+    font-weight:700;
+    color:white !important;
+    background:linear-gradient(135deg,#166534,#15803d) !important;
+}
+
+.btn-save:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(21,128,61,.25);
+}
+
+</style>
+
+{{-- HEADER --}}
+<div class="page-header">
 
     <div>
-        <h2 class="mb-0 fw-bold">
-            Tambah Galeri Foto
-        </h2>
-
-        <p class="text-muted">
-            Upload foto dan dokumentasi terbaru sekolah
-        </p>
+        <h1 class="page-title">Tambah Galeri</h1>
+        <p class="page-subtitle">Upload foto dokumentasi sekolah</p>
     </div>
 
 </div>
 
-<div class="card shadow-sm border-0">
+{{-- CARD --}}
+<div class="modern-card">
 
-    <div class="card-body">
+    <div class="card-body-modern">
 
         <form action="{{ route('admin.galeri.store') }}"
               method="POST"
@@ -28,132 +196,78 @@
 
             @csrf
 
-            <div class="row">
+            <div class="row g-4">
 
                 {{-- LEFT --}}
-                <div class="col-md-8">
+                <div class="col-lg-8">
+
+                    <div class="section-title">
+                        Informasi Galeri
+                    </div>
 
                     {{-- JUDUL --}}
-                    <div class="mb-3">
+                    <div class="mb-4">
 
-                        <label class="form-label fw-bold">
-                            Judul Galeri
-                            <span class="text-danger">*</span>
-                        </label>
+                        <label class="form-label">Judul Galeri</label>
 
                         <input type="text"
                                name="judul"
-                               class="form-control @error('judul') is-invalid @enderror"
-                               value="{{ old('judul') }}"
-                               placeholder="Masukkan judul galeri"
-                               required>
-
-                        @error('judul')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                               class="form-control"
+                               placeholder="Masukkan judul galeri">
 
                     </div>
 
                     {{-- DESKRIPSI --}}
-                    <div class="mb-3">
+                    <div>
 
-                        <label class="form-label fw-bold">
-                            Deskripsi
-                        </label>
+                        <label class="form-label">Deskripsi</label>
 
                         <textarea name="deskripsi"
-                                  rows="10"
-                                  class="form-control @error('deskripsi') is-invalid @enderror"
-                                  placeholder="Tulis deskripsi galeri...">{{ old('deskripsi') }}</textarea>
-
-                        @error('deskripsi')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                                  class="form-control"
+                                  placeholder="Tulis deskripsi galeri..."></textarea>
 
                     </div>
 
                 </div>
 
                 {{-- RIGHT --}}
-                <div class="col-md-4">
+                <div class="col-lg-4">
 
-                    {{-- GAMBAR --}}
-                    <div class="card mb-3 border-0 shadow-sm">
+                    {{-- IMAGE --}}
+                    <div class="modern-card mb-4">
 
-                        <div class="card-header bg-light">
+                        <div class="card-body-modern">
 
-                            <i class="fas fa-image me-2"></i>
-                            Foto Galeri
+                            <div class="section-title">
+                                Upload Gambar
+                            </div>
 
-                        </div>
+                            <div id="imagePreview" class="upload-preview mb-4">
 
-                        <div class="card-body">
-
-                            <div class="text-center mb-3">
-
-                                <div id="imagePreview"
-                                     class="border rounded p-3 bg-light">
-
-                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted"></i>
-
-                                    <p class="text-muted small mt-2">
-                                        Belum ada gambar
-                                    </p>
-
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <h6>Belum Ada Gambar</h6>
                                 </div>
 
                             </div>
 
-                            <input type="file"
-                                   name="gambar"
-                                   id="gambar"
-                                   class="form-control @error('gambar') is-invalid @enderror"
-                                   accept="image/*"
-                                   required>
+                            <div class="custom-file">
 
-                            <div class="form-text mt-2">
+                                <label class="custom-file-label">
 
-                                <small>
+                                    <i class="fas fa-upload"></i>
+                                    Pilih Gambar
 
-                                    <i class="fas fa-info-circle"></i>
+                                    <input type="file"
+                                           name="gambar"
+                                           id="gambar"
+                                           accept="image/*">
 
-                                    Format: JPG, PNG, JPEG<br>
-                                    Rekomendasi ukuran: 800x500px
-
-                                </small>
+                                </label>
 
                             </div>
 
-                            @error('gambar')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-
                         </div>
-
-                    </div>
-
-                    {{-- TIPS --}}
-                    <div class="alert alert-info border-0 shadow-sm">
-
-                        <i class="fas fa-lightbulb me-2"></i>
-
-                        <strong>Tips:</strong>
-
-                        <ul class="mb-0 mt-2 small">
-
-                            <li>Gunakan foto berkualitas baik</li>
-
-                            <li>Tambahkan deskripsi singkat</li>
-
-                            <li>Pastikan gambar relevan</li>
-
-                        </ul>
 
                     </div>
 
@@ -162,14 +276,17 @@
             </div>
 
             {{-- BUTTON --}}
-            <div class="border-top pt-3 mt-3">
+            <div class="border-top pt-4 mt-4 d-flex gap-3">
+
                 <a href="{{ route('admin.galeri.index') }}"
-                   class="btn btn-secondary">
-                    Kembali
+                   class="btn btn-back">
+                    Batal
                 </a>
-                <button class="btn btn-success px-4">
+
+                <button type="submit"
+                        class="btn btn-save">
                     <i class="fas fa-save me-2"></i>
-                    Simpan
+                    Simpan Galeri
                 </button>
 
             </div>
@@ -180,8 +297,8 @@
 
 </div>
 
+{{-- SCRIPT --}}
 @push('scripts')
-
 <script>
 
 document.getElementById('gambar')
@@ -196,11 +313,7 @@ document.getElementById('gambar')
         reader.onload = function(e)
         {
             document.getElementById('imagePreview').innerHTML =
-            `
-                <img src="${e.target.result}"
-                     class="img-fluid rounded"
-                     style="max-height:220px;">
-            `;
+            `<img src="${e.target.result}">`;
         }
 
         reader.readAsDataURL(file);
@@ -208,7 +321,6 @@ document.getElementById('gambar')
 });
 
 </script>
-
 @endpush
 
 @endsection

@@ -4,26 +4,344 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<style>
+
+    .page-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        margin-bottom:32px;
+        flex-wrap:wrap;
+    }
+
+    .page-title{
+        font-size:38px;
+        font-weight:800;
+        color:white;
+        margin-bottom:8px;
+        line-height:1.1;
+    }
+
+    .page-subtitle{
+        color:rgba(255,255,255,.7);
+        margin:0;
+        font-size:15px;
+        font-weight:500;
+    }
+
+    .modern-card{
+        border:none;
+        border-radius:28px;
+        background:white;
+        overflow:hidden;
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.05),
+            0 2px 10px rgba(0,0,0,.03);
+    }
+
+    .card-body-modern{
+        padding:32px;
+    }
+
+    .section-title{
+        font-size:13px;
+        font-weight:800;
+        color:#16a34a;
+        text-transform:uppercase;
+        letter-spacing:.08em;
+        margin-bottom:22px;
+    }
+
+    .hero-box{
+        width:100%;
+        min-height:420px;
+        border-radius:24px;
+        overflow:hidden;
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:50px;
+    }
+
+    .hero-visi{
+        background:linear-gradient(
+            135deg,
+            #1d4ed8,
+            #2563eb,
+            #3b82f6
+        );
+    }
+
+    .hero-misi{
+        background:linear-gradient(
+            135deg,
+            #166534,
+            #15803d,
+            #22c55e
+        );
+    }
+
+    .hero-box::before{
+        content:'';
+        position:absolute;
+        width:300px;
+        height:300px;
+        border-radius:999px;
+        background:rgba(255,255,255,.08);
+        top:-100px;
+        right:-80px;
+    }
+
+    .hero-box::after{
+        content:'';
+        position:absolute;
+        width:220px;
+        height:220px;
+        border-radius:999px;
+        background:rgba(255,255,255,.06);
+        bottom:-80px;
+        left:-60px;
+    }
+
+    .hero-content{
+        position:relative;
+        z-index:2;
+        text-align:center;
+    }
+
+    .hero-icon{
+        width:120px;
+        height:120px;
+        border-radius:32px;
+        background:rgba(255,255,255,.15);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin:auto auto 28px;
+        backdrop-filter:blur(8px);
+        box-shadow:0 10px 30px rgba(0,0,0,.12);
+    }
+
+    .hero-icon i{
+        font-size:58px;
+        color:white;
+    }
+
+    .hero-label{
+        color:rgba(255,255,255,.8);
+        font-size:15px;
+        font-weight:700;
+        letter-spacing:.08em;
+        margin-bottom:14px;
+    }
+
+    .hero-heading{
+        font-size:42px;
+        font-weight:800;
+        color:white;
+        margin-bottom:0;
+    }
+
+    .type-badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 18px;
+        border-radius:999px;
+        font-size:13px;
+        font-weight:700;
+        margin-bottom:18px;
+    }
+
+    .badge-visi{
+        background:#dbeafe;
+        color:#1d4ed8;
+    }
+
+    .badge-misi{
+        background:#dcfce7;
+        color:#166534;
+    }
+
+    .content-title{
+        font-size:38px;
+        font-weight:800;
+        color:#111827;
+        line-height:1.2;
+        margin-bottom:24px;
+    }
+
+    .meta-wrapper{
+        display:flex;
+        flex-wrap:wrap;
+        gap:12px;
+    }
+
+    .meta-chip{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:12px 18px;
+        border-radius:18px;
+        background:#f9fafb;
+        border:1px solid #f3f4f6;
+        color:#374151;
+        font-size:14px;
+        font-weight:700;
+    }
+
+    .content-box{
+        line-height:2;
+        color:#4b5563;
+        font-size:16px;
+    }
+
+    .misi-item{
+        display:flex;
+        align-items:flex-start;
+        gap:16px;
+        padding:18px 0;
+        border-bottom:1px dashed #e5e7eb;
+    }
+
+    .misi-item:last-child{
+        border-bottom:none;
+    }
+
+    .misi-check{
+        min-width:42px;
+        width:42px;
+        height:42px;
+        border-radius:14px;
+        background:#dcfce7;
+        color:#166534;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:16px;
+    }
+
+    .info-item{
+        padding:16px 0;
+        border-bottom:1px dashed #e5e7eb;
+    }
+
+    .info-item:last-child{
+        border-bottom:none;
+        padding-bottom:0;
+    }
+
+    .info-label{
+        font-size:13px;
+        color:#9ca3af;
+        margin-bottom:6px;
+        font-weight:600;
+    }
+
+    .info-value{
+        font-size:15px;
+        font-weight:700;
+        color:#111827;
+    }
+
+    .status-badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 16px;
+        border-radius:999px;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .status-visi{
+        background:#dbeafe;
+        color:#1d4ed8;
+    }
+
+    .status-misi{
+        background:#dcfce7;
+        color:#166534;
+    }
+
+    .btn-back{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        background:#f3f4f6 !important;
+        color:#374151 !important;
+    }
+
+    .btn-delete{
+        border:none !important;
+        border-radius:18px !important;
+        padding:14px 24px !important;
+        font-weight:700;
+        color:white !important;
+        background:linear-gradient(
+            135deg,
+            #dc2626,
+            #b91c1c
+        ) !important;
+    }
+
+    .modal-modern{
+        border:none;
+        border-radius:28px;
+        overflow:hidden;
+    }
+
+    @media(max-width:768px){
+
+        .page-title{
+            font-size:30px;
+        }
+
+        .content-title{
+            font-size:28px;
+        }
+
+        .hero-box{
+            min-height:320px;
+            padding:30px;
+        }
+
+        .hero-heading{
+            font-size:30px;
+        }
+
+        .card-body-modern{
+            padding:22px;
+        }
+
+    }
+
+</style>
+
+{{-- HEADER --}}
+<div class="page-header">
 
     <div>
 
-        <h2 class="mb-0">
+        <h1 class="page-title">
             Detail {{ $visiMisi->type == 'visi' ? 'Visi' : 'Misi' }}
-        </h2>
+        </h1>
 
-        <p class="text-muted">
-            Lihat informasi lengkap data visi & misi
+        <p class="page-subtitle">
+            Informasi lengkap visi & misi sekolah
         </p>
 
     </div>
 
-    <div>
+    <div class="d-flex gap-2 flex-wrap">
 
         <a href="{{ route('admin.visi-misi.index') }}"
-           class="btn btn-secondary">
+           class="btn btn-back">
 
-            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-left me-2"></i>
             Kembali
 
         </a>
@@ -32,77 +350,117 @@
 
 </div>
 
-<div class="row">
+<div class="row g-4">
 
-    <div class="col-md-8">
+    {{-- LEFT --}}
+    <div class="col-lg-8">
 
-        <!-- Konten -->
-        <div class="card shadow-sm mb-4">
+        <div class="modern-card">
 
-            <div class="card-body">
+            <div class="card-body-modern">
 
-                <!-- Icon Header -->
-                <div class="mb-4 text-center">
+                {{-- HERO --}}
+                <div class="mb-4">
+
+                    <div class="hero-box {{ $visiMisi->type == 'visi' ? 'hero-visi' : 'hero-misi' }}">
+
+                        <div class="hero-content">
+
+                            <div class="hero-icon">
+
+                                @if($visiMisi->type == 'visi')
+
+                                    <i class="fas fa-bullseye"></i>
+
+                                @else
+
+                                    <i class="fas fa-tasks"></i>
+
+                                @endif
+
+                            </div>
+
+                            <div class="hero-label">
+                                {{ strtoupper($visiMisi->type) }} SEKOLAH
+                            </div>
+
+                            <h1 class="hero-heading">
+
+                                {{ $visiMisi->type == 'visi'
+                                    ? 'Visi Sekolah'
+                                    : 'Misi Sekolah'
+                                }}
+
+                            </h1>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {{-- CONTENT --}}
+                <div>
 
                     @if($visiMisi->type == 'visi')
 
-                        <div class="bg-primary bg-opacity-10 rounded p-5">
+                        <div class="type-badge badge-visi">
 
-                            <i class="fas fa-bullseye fa-5x text-primary"></i>
-
-                            <h4 class="mt-3 text-primary mb-0">
-                                VISI SEKOLAH
-                            </h4>
+                            <i class="fas fa-bullseye"></i>
+                            Data Visi
 
                         </div>
 
                     @else
 
-                        <div class="bg-success bg-opacity-10 rounded p-5">
+                        <div class="type-badge badge-misi">
 
-                            <i class="fas fa-tasks fa-5x text-success"></i>
-
-                            <h4 class="mt-3 text-success mb-0">
-                                MISI SEKOLAH
-                            </h4>
+                            <i class="fas fa-tasks"></i>
+                            Data Misi
 
                         </div>
 
                     @endif
 
-                </div>
+                    <h1 class="content-title">
 
-                <!-- Judul -->
-                <h1 class="h3 mb-3">
+                        {{ $visiMisi->type == 'visi'
+                            ? 'Visi Utama Sekolah'
+                            : 'Poin Misi Sekolah'
+                        }}
 
-                    {{ $visiMisi->type == 'visi'
-                        ? 'Visi Sekolah'
-                        : 'Poin Misi Sekolah'
-                    }}
+                    </h1>
 
-                </h1>
+                    <div class="meta-wrapper mb-5">
 
-                <!-- Info -->
-                <div class="text-muted mb-4">
+                        <div class="meta-chip">
 
-                    <i class="fas fa-clock"></i>
+                            <i class="fas fa-calendar-alt"></i>
+                            {{ $visiMisi->created_at->format('d M Y') }}
 
-                    Dibuat:
-                    {{ $visiMisi->created_at->format('d F Y H:i') }}
+                        </div>
 
-                    <span class="mx-2">|</span>
+                        <div class="meta-chip">
 
-                    <i class="fas fa-edit"></i>
+                            <i class="fas fa-clock"></i>
+                            {{ $visiMisi->created_at->format('H:i') }}
 
-                    Diupdate:
-                    {{ $visiMisi->updated_at->format('d F Y H:i') }}
+                        </div>
 
-                </div>
+                        <div class="meta-chip">
 
-                <!-- Konten -->
-                <div class="border-top pt-4">
+                            <i class="fas fa-layer-group"></i>
+                            {{ ucfirst($visiMisi->type) }}
 
-                    <div class="visi-misi-konten">
+                        </div>
+
+                    </div>
+
+                    <div class="section-title">
+                        Konten {{ ucfirst($visiMisi->type) }}
+                    </div>
+
+                    <div class="content-box">
 
                         @if($visiMisi->type == 'visi')
 
@@ -110,11 +468,11 @@
 
                         @else
 
-                            <div class="d-flex align-items-start">
+                            <div class="misi-item">
 
-                                <span class="badge bg-success me-3 mt-1">
+                                <div class="misi-check">
                                     <i class="fas fa-check"></i>
-                                </span>
+                                </div>
 
                                 <div>
                                     {!! nl2br(e($visiMisi->misi)) !!}
@@ -134,100 +492,96 @@
 
     </div>
 
-    <div class="col-md-4">
+    {{-- RIGHT --}}
+    <div class="col-lg-4">
 
-        <!-- Informasi -->
-        <div class="card shadow-sm mb-4">
+        {{-- INFO --}}
+        <div class="modern-card mb-4">
 
-            <div class="card-header bg-primary text-white">
+            <div class="card-body-modern">
 
-                <h5 class="mb-0">
-
-                    <i class="fas fa-info-circle"></i>
-
+                <div class="section-title">
                     Informasi Data
+                </div>
 
-                </h5>
+                <div class="info-item">
 
-            </div>
+                    <div class="info-label">
+                        ID Data
+                    </div>
 
-            <div class="card-body">
+                    <div class="info-value">
+                        {{ $visiMisi->id }}
+                    </div>
 
-                <table class="table table-sm table-borderless">
+                </div>
 
-                    <tr>
+                <div class="info-item">
 
-                        <td width="40%">
-                            <strong>ID</strong>
-                        </td>
+                    <div class="info-label">
+                        Tipe Data
+                    </div>
 
-                        <td>
-                            #{{ $visiMisi->id }}
-                        </td>
+                    <div class="info-value">
 
-                    </tr>
+                        @if($visiMisi->type == 'visi')
 
-                    <tr>
+                            <div class="status-badge status-visi">
 
-                        <td>
-                            <strong>Tipe</strong>
-                        </td>
+                                <i class="fas fa-bullseye"></i>
+                                Visi
 
-                        <td>
+                            </div>
 
-                            @if($visiMisi->type == 'visi')
+                        @else
 
-                                <span class="badge bg-primary">
-                                    Visi
-                                </span>
+                            <div class="status-badge status-misi">
 
-                            @else
+                                <i class="fas fa-tasks"></i>
+                                Misi
 
-                                <span class="badge bg-success">
-                                    Misi
-                                </span>
+                            </div>
 
-                            @endif
+                        @endif
 
-                        </td>
+                    </div>
 
-                    </tr>
+                </div>
 
-                    <tr>
+                <div class="info-item">
 
-                        <td>
-                            <strong>Dibuat</strong>
-                        </td>
+                    <div class="info-label">
+                        Tanggal Dibuat
+                    </div>
 
-                        <td>
-                            {{ $visiMisi->created_at->format('d/m/Y H:i:s') }}
-                        </td>
+                    <div class="info-value">
+                        {{ $visiMisi->created_at->format('d/m/Y H:i') }}
+                    </div>
 
-                    </tr>
+                </div>
 
-                    <tr>
+                <div class="info-item">
 
-                        <td>
-                            <strong>Diupdate</strong>
-                        </td>
+                    <div class="info-label">
+                        Terakhir Update
+                    </div>
 
-                        <td>
-                            {{ $visiMisi->updated_at->format('d/m/Y H:i:s') }}
-                        </td>
+                    <div class="info-value">
+                        {{ $visiMisi->updated_at->diffForHumans() }}
+                    </div>
 
-                    </tr>
-
-                </table>
+                </div>
 
             </div>
 
         </div>
 
+
     </div>
 
 </div>
 
-<!-- Modal Hapus -->
+{{-- DELETE MODAL --}}
 <div class="modal fade"
      id="deleteModal"
      tabindex="-1"
@@ -235,69 +589,63 @@
 
     <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-content">
+        <div class="modal-content modal-modern">
 
-            <div class="modal-header bg-danger text-white">
+            <div class="modal-body p-5 text-center">
 
-                <h5 class="modal-title">
+                <div class="mb-4">
 
-                    <i class="fas fa-trash-alt me-2"></i>
+                    <div class="mx-auto d-flex align-items-center justify-content-center rounded-circle"
+                         style="width:90px;height:90px;background:#fee2e2;">
 
-                    Konfirmasi Hapus
+                        <i class="fas fa-trash-alt text-danger fa-2x"></i>
 
-                </h5>
+                    </div>
 
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal"></button>
+                </div>
 
-            </div>
+                <h3 class="fw-bold mb-3">
+                    Hapus Data?
+                </h3>
 
-            <div class="modal-body">
-
-                <p>
-                    Apakah Anda yakin ingin menghapus data ini?
+                <p class="text-muted mb-4">
+                    Data visi & misi akan dihapus permanen dari sistem.
                 </p>
 
-                <p class="fw-bold text-danger">
+                <div class="alert alert-danger rounded-4 mb-4">
 
-                    ID #{{ $visiMisi->id }}
+                    <strong>
+                        {{ ucfirst($visiMisi->type) }} #{{ $visiMisi->id }}
+                    </strong>
 
-                </p>
+                </div>
 
-                <p class="text-muted small">
+                <div class="d-flex justify-content-center gap-3">
 
-                    Tindakan ini tidak dapat dibatalkan!
+                    <button type="button"
+                            class="btn btn-back"
+                            data-bs-dismiss="modal">
 
-                </p>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
-
-                    Batal
-
-                </button>
-
-                <form action="{{ route('admin.visi-misi.destroy', $visiMisi->id) }}"
-                      method="POST"
-                      class="d-inline">
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit"
-                            class="btn btn-danger">
-
-                        Ya, Hapus!
+                        Batal
 
                     </button>
 
-                </form>
+                    <form action="{{ route('admin.visi-misi.destroy', $visiMisi->id) }}"
+                          method="POST">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="btn btn-delete">
+
+                            Ya, Hapus
+
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 

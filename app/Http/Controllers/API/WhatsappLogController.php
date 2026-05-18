@@ -9,32 +9,60 @@ use Illuminate\Support\Facades\Validator;
 
 class WhatsappLogController extends Controller
 {
+    /**
+     * Simpan log WhatsApp baru
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
+
+            'name'    => 'required|string|max:255',
+            'phone'   => 'nullable|string|max:20',
             'purpose' => 'required|string|max:255',
+
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+
+            return response()->json([
+                'success' => false,
+                'errors'  => $validator->errors()
+            ], 422);
         }
 
         $log = WhatsappLog::create([
-            'name' => $request->name,
-            'phone' => $request->phone,
+
+            'name'    => $request->name,
+            'phone'   => $request->phone,
             'purpose' => $request->purpose,
-              'status' => $request->status ?? 'Tertunda',
+
+            // DEFAULT HARUS PENDING
+            'status'  => 'pending',
+
         ]);
 
-        return response()->json($log, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'WhatsApp log berhasil disimpan',
+            'data'    => $log
+        ], 201);
     }
 
+    /**
+     * Update status WhatsApp
+     */
     public function updateStatus(Request $request, $id)
     {
         $log = WhatsappLog::findOrFail($id);
-        $log->update(['status' => 'terkirim']);
-        return response()->json($log);
+
+        $log->update([
+            'status' => 'dibalas'
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status berhasil diperbarui',
+            'data'    => $log
+        ]);
     }
 }
